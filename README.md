@@ -1,2 +1,4 @@
-Marnus & Nora-ann's animated wedding invite
-===========================================
+Marnus & Nora-ann
+=================
+
+Animated wedding invite!
