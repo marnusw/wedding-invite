@@ -30,12 +30,12 @@
         },
         
         M_type1 : {
-            src : 'img/M type1.png',
+            src : 'img/M type 1.png',
             height: 190,
             width: 199
         },
         M_type2 : {
-            src : 'img/M type2.png',
+            src : 'img/M type 2.png',
             height: 190,
             width: 199
         },

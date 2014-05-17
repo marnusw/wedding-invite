@@ -5,18 +5,25 @@
  * @param {Array} frames An array of frame objects describing the animation.
  * @returns {_L2.Animation}
  */
-window.Animation = function(frames) {
+window.Animation = function(frames, repeat) {
+    var base = this;
+    
+    this.repeat = repeat || 0;
     this.frames = frames;
     this.counter = 0;
-    var base = this;
-
+    
     this.start = function() {
         this.processFrame();
     };
 
     var procFrame = this.processFrame = function() {
         if (base.counter >= base.frames.length) {
-            return; // End of the animation.
+            if (!base.repeat) {
+                return; // End of the animation.
+            } else {
+                base.counter = 0;
+                --base.repeat;
+            }
         }
         var c, frame = base.frames[base.counter++];
         for (c in frame.changes) {
@@ -26,7 +33,7 @@ window.Animation = function(frames) {
                 case 'replace' : base.replace(change.oId, change.nId); break;
                 case 'move'    : base.move(change.id, change.x, change.y, change.dur); break;
                 case 'remove'  : base.remove(change.id); break;
-                case 'start'   : base.startNewAnim(change.frameSet); break;
+                case 'start'   : base.startNewAnim(change.frameSet, change.repeat); break;
                 default : throw 'Unknown animation change type: ' + change.type;
             }
         }
@@ -46,22 +53,31 @@ window.Animation = function(frames) {
     };
 
     this.replace = function(oId, nId) {
-        var attrs = Images[nId];
-        $('#'+oId).attr('id', nId)
-                  .attr('src', attrs.src)
-                  .attr('height', attrs.height)
-                  .attr('width', attrs.width);
+        var attrs = Images[nId],
+            img = $('#'+oId);
+        if (img.length) {
+            img.attr('id', nId)
+               .attr('src', attrs.src)
+               .attr('height', attrs.height)
+               .attr('width', attrs.width);
+        }
     };
 
     this.move = function(id, x, y, dur) {
-        $('#'+id).animate({left: x, top: y}, dur, 'linear');
+        var img = $('#'+id);
+        if (img.length) {
+            img.animate({left: x, top: y}, dur, 'linear');
+        }
     };
 
     this.remove = function(id) {
-        $('#'+id).remove();
+        var img = $('#'+id);
+        if (img.length) {
+            img.remove();
+        }
     };
 
-    this.startNewAnim = function(frameSet) {
-        new Animation(frameSets[frameSet]).start();
+    this.startNewAnim = function(frameSet, repeat) {
+        new Animation(frameSets[frameSet], repeat).start();
     };
 };
