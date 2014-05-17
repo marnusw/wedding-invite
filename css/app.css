@@ -130,7 +130,7 @@ header.top {
     background-color: #fff;
     padding: 0 0 0.5em;
     position: fixed;
-    height: 85px;
+    height: 55px;
     width: 100%;
     left: 0;
     top: 0;
@@ -157,6 +157,13 @@ input.short {
 /*-------------------------------------------------------------------------------------*/
 /* Animations                                                                          */
 /*-------------------------------------------------------------------------------------*/
+
+.page-content {
+    position: relative;
+    margin: 70px auto 0;
+    height: 530px;
+    width: 1100px;
+}
 
 img.anim {
     position: absolute;

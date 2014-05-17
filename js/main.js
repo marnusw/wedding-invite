@@ -1,8 +1,10 @@
 
 $(document).ready(function() {
-    setUpAnimation();
+    var anim = new Animation(frameSets.SetUp);
+    anim.start();
 });
 
-$('#start').click(function() {
-    runAnimation();
+$(document).on('click', '#ClickStart', function() {
+    var anim = new Animation(frameSets.Explosion);
+    anim.start();
 });

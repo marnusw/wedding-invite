@@ -1,23 +1,11 @@
 
-(function() {
-
-window.setUpAnimation = function() {
-    var anim = new Animation(SetUp);
-    anim.start();
-};
-
-window.runAnimation = function () {
-    var anim = new Animation(Explosion);
-    anim.start();
-};
-
 /**
  * The constructor takes a frames object. Then run start() to kick off the animation.
  * 
  * @param {Array} frames An array of frame objects describing the animation.
  * @returns {_L2.Animation}
  */
-var Animation = function(frames) {
+window.Animation = function(frames) {
     this.frames = frames;
     this.counter = 0;
     var base = this;
@@ -38,7 +26,7 @@ var Animation = function(frames) {
                 case 'replace' : base.replace(change.oId, change.nId); break;
                 case 'move'    : base.move(change.id, change.x, change.y, change.dur); break;
                 case 'remove'  : base.remove(change.id); break;
-                case 'start'   : base.startNewAnim(change.frames); break;
+                case 'start'   : base.startNewAnim(change.frameSet); break;
                 default : throw 'Unknown animation change type: ' + change.type;
             }
         }
@@ -51,7 +39,7 @@ var Animation = function(frames) {
         var attrs = Images[id],
             img = $('<img class="anim" id="'+id+'" src="'+attrs.src+'" height="'+attrs.height+'" width="'+attrs.width+'">');
         img.appendTo('.page-content')
-           .offset({
+           .css({
                left : x,
                top : y
            });
@@ -73,10 +61,7 @@ var Animation = function(frames) {
         $('#'+id).remove();
     };
 
-    this.startNewAnim = function(frames) {
-        var anim = new Animation(frames);
-        anim.start();
+    this.startNewAnim = function(frameSet) {
+        new Animation(frameSets[frameSet]).start();
     };
 };
-
-})();
