@@ -1,4 +1,6 @@
 
+(function() {
+
 $(document).ready(function() {
     var anim = new Animation(frameSets.SetUp);
     anim.start();
@@ -6,6 +8,7 @@ $(document).ready(function() {
 
 $(document).on('click', '#ClickStart', function() {
     var anim = new Animation(frameSets.Start);
+//    var anim = new Animation(frameSets.NAfly);
     anim.start();
 });
 
@@ -14,3 +17,9 @@ $(document).on('click', '#ClickReset', function() {
     var anim = new Animation(frameSets.SetUp);
     anim.start();
 });
+
+window.showInfo = function() {
+    console.log('show info');
+};
+
+})();

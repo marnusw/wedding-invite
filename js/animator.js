@@ -29,11 +29,12 @@ window.Animation = function(frames, repeat) {
         for (c in frame.changes) {
             var change = frame.changes[c];
             switch (change.type) {
-                case 'add'     : base.add(change.id, change.x, change.y); break;
-                case 'replace' : base.replace(change.oId, change.nId); break;
-                case 'move'    : base.move(change.id, change.x, change.y, change.dur); break;
-                case 'remove'  : base.remove(change.id); break;
-                case 'start'   : base.startNewAnim(change.frameSet, change.repeat); break;
+                case 'add'      : base.add(change.id, change.x, change.y); break;
+                case 'replace'  : base.replace(change.oId, change.nId); break;
+                case 'move'     : base.move(change.id, change.x, change.y, change.dur); break;
+                case 'remove'   : base.remove(change.id); break;
+                case 'start'    : base.startNewAnim(change.frameSet, change.repeat); break;
+                case 'callback' : window[change.func](); break;
                 default : throw 'Unknown animation change type: ' + change.type;
             }
         }

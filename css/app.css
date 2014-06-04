@@ -115,30 +115,25 @@ body {
     padding: 3px;
 }
 
-header .title {
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.4em;
-    position: absolute;
-    display: block;
-    margin: 20px 0;
-    width: 100%;
+.out-border {
+    margin: 10px auto 0;
+    border: #800021 solid 5px;
+    padding: 1px;
+    height: 560px;
+    width: 1100px;
 }
 
-header.top {
-    border-bottom: 0.1em solid black;
-    background-color: #fff;
-    padding: 0 0 0.5em;
-    position: fixed;
-    height: 55px;
-    width: 100%;
-    left: 0;
-    top: 0;
-    z-index: 1000;
+.in-border {
+    border: #702963 solid 4px;
+    padding: 2px;
+    height: 548px;
 }
 
 .page-content {
-    margin-top: 100px; // height 85px + margin 15px
+    border: #800021 solid 2px;
+    padding: 3px;
+    height: 538px;
+    overflow: hidden;
 }
 
 input.short {
@@ -158,11 +153,8 @@ input.short {
 /* Animations                                                                          */
 /*-------------------------------------------------------------------------------------*/
 
-.page-content {
+.out-border {
     position: relative;
-    margin: 70px auto 0;
-    height: 530px;
-    width: 1100px;
 }
 
 img.anim {

@@ -55,6 +55,63 @@
             height: 300,
             width: 487
         },
+        MN_TangleSad : {
+            src : 'img/Knot1.png',
+            height: 160,
+            width: 154
+        },
+        MN_TangleHappy : {
+            src : 'img/Knot2.png',
+            height: 160,
+            width: 154
+        },
+        MN_TangleFrust : {
+            src : 'img/M frustrated.png',
+            height: 160,
+            width: 154
+        },
+        MN_TangleAngry : {
+            src : 'img/M angry.png',
+            height: 160,
+            width: 154
+        },
+        
+        MN_Engage : {
+            src : 'img/Big Question.png',
+            height: 244,
+            width: 240
+        },
+        MN_Wedding : {
+            src : 'img/Big Question.png',
+            height: 244,
+            width: 240
+        },
+        
+        Heart : {
+            src : 'img/Heart large.png',
+            height: 411,
+            width: 493
+        },
+        Heart1 : {
+            src : 'img/Skryf 1.png',
+            height: 411,
+            width: 493
+        },
+        Heart2 : {
+            src : 'img/Skryf 2.png',
+            height: 411,
+            width: 493
+        },
+        Heart3 : {
+            src : 'img/Skryf 3.png',
+            height: 411,
+            width: 493
+        },
+        HeartInvite : {
+            src : 'img/Skryf 3.png',
+            height: 411,
+            width: 493
+        },
         
         Step_fly : {
             src : 'img/Step fly.png',
