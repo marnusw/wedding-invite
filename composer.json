@@ -1,0 +1,16 @@
+{
+    "name": "marnusw/troue",
+    "description": "Wedding invitation",
+    "repositories": [{
+            "type": "composer",
+            "url": "https://packages.zendframework.com/"
+    }],
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.3.*",
+        "doctrine/orm": "*"
+    },
+    "autoload": {
+        "psr-4": {"Acme\\": "src/"}
+    }
+}
