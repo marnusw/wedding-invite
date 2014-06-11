@@ -8,9 +8,10 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.3.*",
-        "doctrine/orm": "*"
-    },
-    "autoload": {
-        "psr-4": {"Acme\\": "src/"}
+        "zendframework/zend-developer-tools": "*",
+        "doctrine/doctrine-orm-module": "0.8.*",
+        "doctrine/data-fixtures": "*",
+        "doctrine/migrations": "dev-master",
+        "radnan/rdn-csv": "1.*"
     }
 }

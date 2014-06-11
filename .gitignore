@@ -6,4 +6,6 @@
 .idea
 .project
 .settings
+
+config/autoload/local.php
 vendor

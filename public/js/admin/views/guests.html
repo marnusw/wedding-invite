@@ -1,0 +1,28 @@
+<div disable-when-recording class="line unitCenter size1of2">
+    <h1 class="indented">Input streams</h1>
+    <section class="unit size1of2" ng-repeat="stream in streams| orderBy:'index'">
+        <div class="block spaced">
+            <h2>{{stream.name}}</h2>
+            <div class="mtm mbl">
+                <div class="btn-group unitRight">
+                    <button type="button" class="btn" btn-radio="'Enabled'" ng-model="stream.status" 
+                            ng-change="saveChange()" ng-class="stream.status === 'Enabled' && 'btn-primary'">Enabled</button>
+                    <button type="button" class="btn" btn-radio="'Disabled'" ng-model="stream.status" 
+                            ng-change="saveChange()" ng-class="stream.status === 'Disabled' && 'btn-primary'">Disabled</button>
+                </div>
+                <label>Type:</label> {{stream.type}}
+            </div>
+            <div class="mbm" ng-if="stream.type === 'Simulated'">
+                <div ng-hide="edit[$index]">
+                    <label>Simulated data rate:</label> {{stream.simulatedRate}} MB/s
+                    <a href="" class="small-link" ng-click="editDataRate($index)">Edit</a>
+                </div>
+                <div ng-if="edit[$index]">
+                    <label>Simulated data rate:</label>
+                    <input type="number" class="short mts" ng-model="stream.simulatedRate" /> MB/s
+                    <button type="button" class="btn btn-primary btn-small unitRight btn-pad" ng-click="saveDataRate($index)">Save</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
