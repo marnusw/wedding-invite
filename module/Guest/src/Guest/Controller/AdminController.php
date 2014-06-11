@@ -40,7 +40,7 @@ class AdminController extends AbstractActionController
                 $data = $form->getData();
                 $csv = $this->csvImport($data['csv-file']['tmp_name']);
                 $this->saveGuests($csv);
-//                return $this->redirect()->toRoute('/admin');
+                return $this->redirect()->toRoute('/admin');
             }
         }
 
@@ -52,11 +52,11 @@ class AdminController extends AbstractActionController
         
         foreach ($guestsData as $data) {
             $g1 = $g2 = null;
-            if (isset($data['name'])) {
+            if (!empty($data['name'])) {
                 $g1 = $this->newGuest($data['name'], 'male', $data);
                 $em->persist($g1);
             }
-            if (isset($data['partnerName'])) {
+            if (!empty($data['partnerName'])) {
                 $g2 = $this->newGuest($data['partnerName'], 'female', $data);
                 $em->persist($g2);
             }
@@ -69,11 +69,15 @@ class AdminController extends AbstractActionController
     }
     
     private function newGuest($name, $gender, $options) {
-        if (!isset($options['inviteMorning'])) {
+        if (!isset($options['inviteMorning']) || $options['inviteMorning'] != 'FALSE') {
             $options['inviteMorning'] = false;
+        } else {
+            $options['inviteMorning'] = true;
         }
-        if (!isset($options['inviteEvening'])) {
+        if (!isset($options['inviteEvening']) || $options['inviteMorning'] != 'FALSE') {
             $options['inviteEvening'] = false;
+        } else {
+            $options['inviteEvening'] = true;
         }
         $guest = new Guest($options);
         $guest->setGender($gender);

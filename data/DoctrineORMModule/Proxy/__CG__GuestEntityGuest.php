@@ -64,10 +64,10 @@ class Guest extends \Guest\Entity\Guest implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'id', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'name', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'surname', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'gender', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'connection', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'partner', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'viewedAt', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'repliedAt');
+            return array('__isInitialized__', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'id', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'name', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'surname', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'gender', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'email', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'connection', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'partner', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'viewedAt', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'repliedAt');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'id', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'name', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'surname', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'gender', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'connection', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'partner', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'viewedAt', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'repliedAt');
+        return array('__isInitialized__', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'id', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'name', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'surname', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'gender', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'email', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'connection', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'partner', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'viewedAt', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'repliedAt');
     }
 
     /**
@@ -258,6 +258,17 @@ class Guest extends \Guest\Entity\Guest implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getEmail()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEmail', array());
+
+        return parent::getEmail();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getPartnerName()
     {
 
@@ -407,6 +418,17 @@ class Guest extends \Guest\Entity\Guest implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSurname', array($surname));
 
         return parent::setSurname($surname);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setEmail($email)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEmail', array($email));
+
+        return parent::setEmail($email);
     }
 
     /**

@@ -1,16 +1,16 @@
 'use strict';
 
-
 // Declare app level module which depends on filters, and services
-angular.module('hsfrWebInterface', [
+angular.module('troue', [
   'ngRoute',
   'ngResource',
-//  'ui.bootstrap.buttons',
+  'ui.bootstrap.position',
+  'ui.bootstrap.datepicker',
   'troue.filters',
   'troue.services',
   'troue.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/guests', {templateUrl: 'js/admin/views/guests.html', controller: 'RecorderCtrl'});
-  $routeProvider.otherwise({redirectTo: '/'});
+  $routeProvider.when('/guests', {templateUrl: '/js/admin/views/guests.html', controller: 'GuestsController'});
+  $routeProvider.otherwise({redirectTo: '/guests'});
 }]);

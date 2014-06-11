@@ -28,6 +28,9 @@ class Guest implements InputFilterAwareInterface {
     /** @ORM\Column(length=6) */
     private $gender;
     
+    /** @ORM\Column(length=200, nullable=true) */
+    private $email;
+    
     /**
      * @ORM\Column(length=50)
      * Who knows this person?
@@ -71,6 +74,7 @@ class Guest implements InputFilterAwareInterface {
     public function populate(array $values = array()) {
         $keys = get_object_vars($this);
         unset($keys['id']);
+        unset($keys['partner']);
 
         foreach ($keys as $key => $v) {
             if (isset($values[$key]) && !is_null($values[$key])) {
@@ -84,7 +88,9 @@ class Guest implements InputFilterAwareInterface {
      */
     public function getArrayCopy() {
         $vars = get_object_vars($this);
-        $vars['partner'] = $vars['partner']->getId();
+        if (isset($vars['partner'])) {
+            $vars['partner'] = $vars['partner']->getId();
+        }
         unset($vars['__initializer__']);
         unset($vars['__cloner__']);
         unset($vars['__isInitialized__']);
@@ -124,6 +130,10 @@ class Guest implements InputFilterAwareInterface {
      */
     public function getSurname() {
         return $this->surname;
+    }
+
+    public function getEmail() {
+        return $this->email;
     }
 
     /**
@@ -192,6 +202,10 @@ class Guest implements InputFilterAwareInterface {
 
     public function setSurname($surname) {
         $this->surname = $surname;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
     }
 
     public function setPartner(Guest $partner) {
