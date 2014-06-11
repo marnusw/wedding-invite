@@ -8,15 +8,19 @@ angular.module('troue.controllers', [])
 function($scope, Guests) {
     $scope.guests = Guests.query();
     $scope.orderBy = 'name';
-    $scope.editing = {91:true};
+    $scope.editing = {};
     
     $scope.edit = function(guest) {
         $scope.editing[guest.id] = true;
+    };
+    $scope.cancel = function(guest) {
+        delete $scope.editing[guest.id];
     };
     
     $scope.save = function(guest, $event) {
         if ($scope.editing[guest.id]) {
             delete $scope.editing[guest.id];
+            Guests.update({guestId:guest.id}, guest);
         }
         
         if ($event.stopPropagation) $event.stopPropagation();

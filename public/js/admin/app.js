@@ -8,6 +8,7 @@ angular.module('troue', [
   'ui.bootstrap.datepicker',
   'troue.filters',
   'troue.services',
+  'troue.directives',
   'troue.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {

@@ -9,29 +9,32 @@
             <option value="connection">Connection</option>
             <option value="repliedAt">Replied</option>
             <option value="attendMorning">Attend Morning</option>
-            <option value="attendEvening">Attend Morning</option>
+            <option value="attendEvening">Attend Evening</option>
         </select>
     </div>
     <div class="unit lastUnit size1of2"></div>
 </section>
-<table class="table" style="width:100%" cellpadding="0" cellspacing="0">
+<table class="table table-condensed" style="width:100%" cellpadding="0" cellspacing="0">
+    <thead>
     <tr>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Email</th>
-        <th>Connection</th>
-        <th>&nbsp;</th>
-        <th>Partner</th>
-        <th class="txtr">Morning</th>
-        <th class="txtr">Evening</th>
-        <th class="txtr">Viewed</th>
-        <th class="txtr">Replied</th>
-        <th class="txtr">Attend Morning</th>
-        <th class="txtr">Attend Evening</th>
-        <th width="16">&nbsp;</th>
+        <th width="100">Name</th>
+        <th width="100">Surname</th>
+        <th width="167">Email</th>
+        <th width="98">Connection</th>
+        <th width="60">Gender</th>
+        <th width="100">Partner</th>
+        <th width="83" class="txtr">Invited Morning</th>
+        <th width="82" class="txtr">Invited Evening</th>
+        <th width="85" class="txtr">Viewed</th>
+        <th width="100" class="txtr">Replied</th>
+        <th width="63" class="txtr">Attend Morning</th>
+        <th width="63" class="txtr">Attend Evening</th>
+        <th width="24">&nbsp;</th>
     </tr>
+    </thead>
+    <tbody>
     <tr ng-repeat="guest in guests | filter:query | orderBy:orderBy" ng-init="view = !editing[guest.id]"
-        ng-click="edit(guest)">
+        ng-click="edit(guest, $event)" enter-keyup="save(guest, $event)" esc-keyup="cancel(guest)" keys="[13, 27]">
         <td ng-if="!editing[guest.id]">{{guest.name}}</td>
         <td ng-if="!editing[guest.id]">{{guest.surname}}</td>
         <td ng-if="!editing[guest.id]">{{guest.email}}</td>
@@ -45,10 +48,10 @@
         <td ng-if="!editing[guest.id]" class="txtr">{{guest.attendMorning | checkmark}}</td>
         <td ng-if="!editing[guest.id]" class="txtr">{{guest.attendEvening | checkmark}}</td>
         <td ng-if="!editing[guest.id]" class="txtr"></td>
-        
+
         <td ng-if="editing[guest.id]"><input class="short" type="text" ng-model="guest.name" /></td>
         <td ng-if="editing[guest.id]"><input class="short" type="text" ng-model="guest.surname" /></td>
-        <td ng-if="editing[guest.id]"><input class="short" type="email" ng-model="guest.email" /></td>
+        <td ng-if="editing[guest.id]"><input style="width:110px" type="email" ng-model="guest.email" /></td>
         <td ng-if="editing[guest.id]">
             <select style="width:88px" ng-model="guest.connection"
                     ng-options="value for value in ['Marnus', 'Nora-ann', 'Beide']"></select>
@@ -73,4 +76,5 @@
             </a>
         </td>
     </tr>
+    </tbody>
 </table>

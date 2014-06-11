@@ -4,11 +4,12 @@
 
 angular.module('troue.services', ['ngResource'])
  
-.factory('Guests', ['$resource',
-    function($resource) {
+.factory('Guests', ['$resource', 'invitedToFilter',
+    function($resource, invitedTo) {
         var partners = null;
         
         var resource = $resource('/guest-rest/:guestId', {}, {
+            update: { method:'PUT' },
             query: {
                 method  : 'GET',
                 params  : {guestId:''},
@@ -18,6 +19,8 @@ angular.module('troue.services', ['ngResource'])
                     partners || (partners = {});
                     for (i in array) {
                         partners[array[i].id] = array[i];
+                        
+                        array[i].invitedTo = invitedTo(array[i]);
                     }
                     return array;
                 }

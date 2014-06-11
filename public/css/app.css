@@ -114,6 +114,9 @@ a {
     cursor: pointer;
 }
 
+.table td input { cursor:default; }
+.table td input[type=checkbox] { cursor: pointer; }
+
 /*-------------------------------------------------------------------------------------*/
 /* Application specific styles                                                         */
 /*-------------------------------------------------------------------------------------*/

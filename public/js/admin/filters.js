@@ -24,8 +24,23 @@ angular.module('troue.filters', ['troue.services'])
     };
 }])
 
+.filter('invitedTo', function() {
+    return function(input) {
+        if (input.morning && input.evening) {
+            return 'Both';
+        } else if (input.morning) {
+            return 'Morning';
+        } else {
+            return 'Evening';
+        }
+    };
+})
+
 .filter('checkmark', function() {
     return function(input) {
+        if (input === null) {
+            return '';
+        }
         return input && input !== 'false' ? '\u2713' : '\u2718';
     };
 })
