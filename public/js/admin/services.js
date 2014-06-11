@@ -4,37 +4,42 @@
 
 angular.module('troue.services', ['ngResource'])
  
-.factory('Guests', ['$resource', 'invitedToFilter',
-    function($resource, invitedTo) {
-        var partners = null;
-        
-        var resource = $resource('/guest-rest/:guestId', {}, {
-            update: { method:'PUT' },
-            query: {
-                method  : 'GET',
-                params  : {guestId:''},
-                isArray : true,
-                transformResponse: function(data) {
-                    var i, array = angular.fromJson(data);
-                    partners || (partners = {});
-                    for (i in array) {
-                        partners[array[i].id] = array[i];
-                        
-                        array[i].invitedTo = invitedTo(array[i]);
+.factory('Guests', ['$resource', function($resource) {
+    var men = null;
+    var women = null;
+    
+    return $resource('/guest-rest/:guestId', {}, {
+        update: { method:'PUT' },
+        query: {
+            method  : 'GET',
+            params  : {guestId:''},
+            transformResponse: function(data) {
+                var i, all = angular.fromJson(data);
+                women || (women = {});
+                men || (men = {});
+                for (i in all) {
+                    if (all[i].gender == 'male') {
+                        men[all[i].id] = all[i];
+                    } else {
+                        women[all[i].id] = all[i];
                     }
-                    return array;
                 }
+                var couples = [],
+                    pid;
+                for (i in men) {
+                    pid = men[i].partner;
+                    men[i].partner = women[pid];
+                    delete women[pid];
+                    couples.push(men[i]);
+                }
+                for (i in women) {
+                    couples.push(women[i]);
+                }
+                return {
+                    couples : couples,
+                    all : all
+                };
             }
-        });
-        
-        resource.getPartner = function(id) {
-            if (partners !== null) {
-                return partners[id];
-            } else {
-                return resource.get(id);
-            }
-        };
-        
-        return resource;
-    }
-]);
+        }
+    });
+}]);

@@ -13,8 +13,9 @@ function($scope, Guests) {
     $scope.edit = function(guest) {
         $scope.editing[guest.id] = true;
     };
-    $scope.cancel = function(guest) {
+    $scope.cancel = function(guest, $event) {
         delete $scope.editing[guest.id];
+        stop($event);
     };
     
     $scope.save = function(guest, $event) {
@@ -22,12 +23,15 @@ function($scope, Guests) {
             delete $scope.editing[guest.id];
             Guests.update({guestId:guest.id}, guest);
         }
-        
+        stop($event);
+    };
+    
+    function stop($event) {
         if ($event.stopPropagation) $event.stopPropagation();
         if ($event.preventDefault) $event.preventDefault();
         $event.cancelBubble = true;
         $event.returnValue = false;
-    };
+    }
     
     $scope.updatePartner = function(guest, partner) {
         console.log('New partner for', guest.name, '->', partner);

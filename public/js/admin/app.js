@@ -4,6 +4,7 @@
 angular.module('troue', [
   'ngRoute',
   'ngResource',
+  'ngSanitize',
   'ui.bootstrap.position',
   'ui.bootstrap.datepicker',
   'troue.filters',

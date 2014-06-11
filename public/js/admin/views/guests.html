@@ -1,80 +1,102 @@
 <h1 class="">Gastelys</h1>
 <section class="line">
     <div class="unit size1of2">
+        <dl class="dl-horizontal">
+            <dt>Morning:</dt>
+            <dd>
+                {{(guests.all | filter:{inviteMorning:true}).length}} | 
+                {{(guests.all | filter:{inviteMorning:true,attendMorning:true}).length}} | 
+                {{(guests.all | filter:{inviteMorning:true,attendMorning:null}).length}}
+            </dd>
+            <dt>Evening:</dt>
+            <dd>
+                {{(guests.all | filter:{inviteEvening:true}).length}} | 
+                {{(guests.all | filter:{inviteEvening:true,attendEvening:true}).length}} | 
+                {{(guests.all | filter:{inviteEvening:true,attendEvening:null}).length}}
+            </dd>
+        </dl>
+    </div>
+    <div class="unit size1of2">
         Search: <input ng-model="query">
         Sort by:
         <select ng-model="orderBy">
             <option value="name">Name</option>
             <option value="surname">Surname</option>
-            <option value="connection">Connection</option>
+            <option value="connection">For</option>
             <option value="repliedAt">Replied</option>
+            <option value="inviteMorning">Invited Morning</option>
+            <option value="inviteEvening">Invited Evening</option>
             <option value="attendMorning">Attend Morning</option>
             <option value="attendEvening">Attend Evening</option>
         </select>
     </div>
     <div class="unit lastUnit size1of2"></div>
 </section>
-<table class="table table-condensed" style="width:100%" cellpadding="0" cellspacing="0">
-    <thead>
-    <tr>
-        <th width="100">Name</th>
-        <th width="100">Surname</th>
-        <th width="167">Email</th>
-        <th width="98">Connection</th>
-        <th width="60">Gender</th>
-        <th width="100">Partner</th>
-        <th width="83" class="txtr">Invited Morning</th>
-        <th width="82" class="txtr">Invited Evening</th>
-        <th width="85" class="txtr">Viewed</th>
-        <th width="100" class="txtr">Replied</th>
-        <th width="63" class="txtr">Attend Morning</th>
-        <th width="63" class="txtr">Attend Evening</th>
-        <th width="24">&nbsp;</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="guest in guests | filter:query | orderBy:orderBy" ng-init="view = !editing[guest.id]"
-        ng-click="edit(guest, $event)" enter-keyup="save(guest, $event)" esc-keyup="cancel(guest)" keys="[13, 27]">
-        <td ng-if="!editing[guest.id]">{{guest.name}}</td>
-        <td ng-if="!editing[guest.id]">{{guest.surname}}</td>
-        <td ng-if="!editing[guest.id]">{{guest.email}}</td>
-        <td ng-if="!editing[guest.id]">{{guest.connection}}</td>
-        <td ng-if="!editing[guest.id]">{{guest.gender | gender}}</td>
-        <td ng-if="!editing[guest.id]">{{guest.partner | partnerName}}</td>
-        <td ng-if="!editing[guest.id]" class="txtr">{{guest.inviteMorning | checkmark}}</td>
-        <td ng-if="!editing[guest.id]" class="txtr">{{guest.inviteEvening | checkmark}}</td>
-        <td ng-if="!editing[guest.id]" class="txtr">{{guest.viewedAt}}</td>
-        <td ng-if="!editing[guest.id]" class="txtr">{{guest.repliedAt}}</td>
-        <td ng-if="!editing[guest.id]" class="txtr">{{guest.attendMorning | checkmark}}</td>
-        <td ng-if="!editing[guest.id]" class="txtr">{{guest.attendEvening | checkmark}}</td>
-        <td ng-if="!editing[guest.id]" class="txtr"></td>
-
-        <td ng-if="editing[guest.id]"><input class="short" type="text" ng-model="guest.name" /></td>
-        <td ng-if="editing[guest.id]"><input class="short" type="text" ng-model="guest.surname" /></td>
-        <td ng-if="editing[guest.id]"><input style="width:110px" type="email" ng-model="guest.email" /></td>
-        <td ng-if="editing[guest.id]">
-            <select style="width:88px" ng-model="guest.connection"
-                    ng-options="value for value in ['Marnus', 'Nora-ann', 'Beide']"></select>
-        </td>
-        <td ng-if="editing[guest.id]">
-            <select style="width:50px" ng-model="guest.gender"
-                    ng-options="key for (key , value) in {M:'male',F:'female'}"></select>
-        </td>
-        <td ng-if="editing[guest.id]"><input class="short" type="text" ng-change="updatePartner(guest, guest.partner)" ng-model="guest.partner" /></td>
-        <td ng-if="editing[guest.id]" class="txtr"><input type="checkbox" ng-model="guest.inviteMorning" /></td>
-        <td ng-if="editing[guest.id]" class="txtr"><input type="checkbox" ng-model="guest.inviteEvening" /></td>
-        <td ng-if="editing[guest.id]" class="txtr">{{guest.viewedAt}}</td>
-        <td ng-if="editing[guest.id]">
-            <input type="text" class="short form-control" datepicker-popup="{{'yyyy/MM/dd'}}" show-button-bar="false"
-                   ng-model="guest.repliedAt" />
-        </td>
-        <td ng-if="editing[guest.id]" class="txtr"><input type="checkbox" ng-model="guest.attendMorning" /></td>
-        <td ng-if="editing[guest.id]" class="txtr"><input type="checkbox" ng-model="guest.attendEvening" /></td>
-        <td ng-if="editing[guest.id]" class="txtr">
-            <a ng-click="save(guest, $event)">
-                <img alt="Save" src="/buttons/save.png" width="16" height="16" />
-            </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<section class="line block spaced" ng-repeat="guest in guests.couples | filter:query | orderBy:orderBy"
+         ng-click="edit(guest)">
+    <div ng-if="!editing[guest.id]">
+        <div class="unit size1of5">
+            <p>{{guest | fullName}}</p>
+            <p>{{guest.partner | fullName}}</p>
+        </div>
+        <div class="unit size1of5">
+            <p ng-bind-html="(guest.email | truncate:28) || '&nbsp;'"></p>
+            <p ng-bind-html="guest.partner.email | truncate:28"></p>
+        </div>
+        <div class="unit size1of5">
+            <p>For: {{guest.connection}}</p>
+        </div>
+        <div class="unit size1of5">
+            <p ng-if="guest.inviteMorning">Morning: {{[guest.attendMorning, guest.partner.attendMorning] | attend}}</p>
+            <p ng-if="!guest.inviteMorning">&nbsp;</p>
+            <p ng-if="guest.inviteEvening">Evening: {{[guest.attendEvening, guest.partner.attendEvening] | attend}}</p>
+        </div>
+        <div class="unit size1of5">
+            <p>Viewed:&nbsp; {{guest.viewedAt}}</p>
+            <p>Replied: {{guest.repliedAt}}</p>
+        </div>
+    </div>
+    
+    <div ng-if="editing[guest.id]" enter-keyup="save(guest, $event)" esc-keyup="cancel(guest)" keys="[13, 27]">
+        <div class="unit size1of5">
+            <p>
+                <input class="short" type="text" ng-model="guest.name" />
+                <input class="short" type="text" ng-model="guest.surname" />
+            </p>
+            <p>
+                <input class="short" type="text" ng-model="guest.partner.name" />
+                <input class="short" type="text" ng-model="guest.partner.surname" />
+            </p>
+        </div>
+        <div class="unit size1of5">
+            <p><input style="width:180px" type="text" ng-model="guest.email" /></p>
+            <p><input style="width:180px" type="text" ng-model="guest.partner.email" /></p>
+        </div>
+        <div class="unit size1of5">
+            <p>For: <select style="width:88px" ng-model="guest.connection"
+                    ng-options="value for value in ['Marnus', 'Nora-ann', 'Beide']"></select></p>
+        </div>
+        <div class="unit size1of5">
+            <p>
+                <span style="display:inline-block; width:75px">
+                    Morning: <input type="checkbox" ng-model="guest.inviteMorning" />
+                </span>
+                Attending: <input type="checkbox" ng-model="guest.attendMorning" />
+                <span ng-if="guest.partner">| <input type="checkbox" ng-model="guest.partner.attendMorning" /></span>
+            </p>
+            <p>
+                <span style="display:inline-block; width:75px">
+                    Evening: <input type="checkbox" ng-model="guest.inviteEvening" />
+                </span>
+                Attending: <input type="checkbox" ng-model="guest.attendEvening" />
+                <span ng-if="guest.partner">| <input type="checkbox" ng-model="guest.partner.attendEvening" /></span>
+            </p>
+        </div>
+        <div class="unit size1of5">
+            <p>Viewed:&nbsp; {{guest.viewedAt}}</p>
+            <p>Replied: <input type="text" class="short form-control" datepicker-popup="{{'yyyy/MM/dd'}}" 
+                               show-button-bar="false" ng-model="guest.repliedAt" /></p>
+            <p style="text-align:right"><a ng-click="cancel(guest, $event)">Cancel</a> | <a ng-click="save(guest, $event)">Save</a></p>
+        </div>
+    </div>
+</section>

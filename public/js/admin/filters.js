@@ -2,10 +2,22 @@
 
 /* Filters */
 
-angular.module('troue.filters', ['troue.services'])
+angular.module('troue.filters', [])
+
+.filter('truncate', function() {
+    return function(str, chars) {
+        if (str && str.length > chars) {
+            return '<span title="' + str + '">' + str.substr(0, chars) + '...' + '</span>';
+        }
+        return str;
+    };
+})
 
 .filter('fullName', function() {
     return function(guest) {
+        if (!guest) {
+            return '';
+        }
         var name = guest.name;
         if (guest.surname) {
             name += ' ' + guest.surname;
@@ -14,25 +26,20 @@ angular.module('troue.filters', ['troue.services'])
     };
 })
 
-.filter('partnerName', ['Guests', 'fullNameFilter', function(Guests, fullName) {
-    return function(id) {
-        if (!id) {
-            return '';
-        }
-        var partner = Guests.getPartner(id);
-        return partner ? fullName(partner) : '';
-    };
-}])
-
-.filter('invitedTo', function() {
-    return function(input) {
-        if (input.morning && input.evening) {
-            return 'Both';
-        } else if (input.morning) {
-            return 'Morning';
+.filter('attend', function() {
+    return function(values) {
+        var text;
+        if (values[0] !== true && values[0] !== false) {
+            return '-';
         } else {
-            return 'Evening';
+            text = values[0] === true ? '\u2713' : '\u2718';
         }
+        if (values[1] === true) {
+            text += ' | \u2713';
+        } else if (values[0] === false) {
+            text += ' | \u2718';
+        }
+        return text;
     };
 })
 
