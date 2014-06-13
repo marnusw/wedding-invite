@@ -42,6 +42,8 @@ class Guest implements InputFilterAwareInterface {
      * @var Guest
      */
     private $partner;
+    /** @ORM\Column(type="boolean", nullable=true) */
+    private $partnerAllowed;
     
     /** @ORM\Column(type="boolean", nullable=true) */
     private $inviteMorning;
@@ -150,6 +152,10 @@ class Guest implements InputFilterAwareInterface {
         return $this->partner;
     }
     
+    public function getPartnerAllowed() {
+        return $this->partnerAllowed;
+    }
+
     public function getInviteMorning() {
         return $this->inviteMorning;
     }
@@ -214,7 +220,11 @@ class Guest implements InputFilterAwareInterface {
             $partner->setPartner($this);
         }
     }
-
+    
+    public function setPartnerAllowed($partnerAllowed) {
+        $this->partnerAllowed = $partnerAllowed;
+    }
+    
     public function setViewedAt($viewedAt) {
         $this->viewedAt = $viewedAt;
     }

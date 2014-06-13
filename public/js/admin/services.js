@@ -57,6 +57,8 @@ angular.module('troue.services', ['ngResource'])
             partner.inviteEvening = guest.inviteEvening;
             partner.repliedAt = guest.repliedAt;
             return partner;
+        } else {
+            guest.partner = null;
         }
     };
     

@@ -4,13 +4,13 @@
         <dl class="dl-horizontal">
             <dt>Morning:</dt>
             <dd title="Invited | Unconfirmed | Attending" style="cursor:default">
-                {{(guests.all | filter:{inviteMorning:true}).length}} | 
+                {{(guests.all | filter:{inviteMorning:true}).length + countPlusOnes('Morning')}} | 
                 {{(guests.all | filter:{inviteMorning:true,attendMorning:null}).length}} | 
                 {{(guests.all | filter:{inviteMorning:true,attendMorning:true}).length}}
             </dd>
             <dt>Evening:</dt>
             <dd title="Invited | Unconfirmed | Attending" style="cursor:default">
-                {{(guests.all | filter:{inviteEvening:true}).length}} | 
+                {{(guests.all | filter:{inviteEvening:true}).length + countPlusOnes('Evening')}} | 
                 {{(guests.all | filter:{inviteEvening:true,attendEvening:null}).length}} | 
                 {{(guests.all | filter:{inviteEvening:true,attendEvening:true}).length}}
             </dd>
@@ -36,7 +36,7 @@
     <div ng-if="!editing[guest.id]">
         <div class="unit size1of5">
             <p>{{guest | fullName}}</p>
-            <p>{{guest.partner | fullName}}</p>
+            <p>{{guest.partner ? (guest.partner | fullName) : (guest.partnerAllowed ? '+1' : '')}}</p>
         </div>
         <div class="unit size1of5">
             <p ng-bind-html="(guest.email | truncate:28) || '&nbsp;'"></p>
@@ -74,6 +74,7 @@
         <div class="unit size1of5">
             <p>For: <select style="width:88px" ng-model="guest.connection"
                     ng-options="value for value in ['Marnus', 'Nora-ann', 'Beide']"></select></p>
+            <p ng-show="!guest.partner"><input type="checkbox" ng-model="guest.partnerAllowed" /> Allow partner</p>
         </div>
         <div class="unit size1of5">
             <p>
@@ -133,7 +134,8 @@
                          ng-options="value for value in ['Marnus', 'Nora-ann', 'Beide']"></select></p>
         <p>
             <select style="width:50px" ng-model="newGuest.partner.gender"
-                    ng-options="key for (key , value) in {M:'male',F:'female'}"><option></option></select>
+                    ng-options="key for (key , value) in {M:'male',F:'female'}"><option></option></select>&nbsp;&nbsp;
+            <span ng-if="!newGuest.partner.name"><input type="checkbox" ng-model="newGuest.partnerAllowed" /> Allow partner</span>
         </p>
     </div>
     <div class="unit size1of5">
@@ -142,14 +144,14 @@
                 Morning: <input type="checkbox" ng-model="newGuest.inviteMorning" />
             </span>
             Attending: <input type="checkbox" ng-model="newGuest.attendMorning" />
-            <span ng-if="newGuest.partner">| <input type="checkbox" ng-model="newGuest.partner.attendMorning" /></span>
+            <span ng-if="newGuest.partner.name">| <input type="checkbox" ng-model="newGuest.partner.attendMorning" /></span>
         </p>
         <p>
             <span style="display:inline-block; width:75px">
                 Evening: <input type="checkbox" ng-model="newGuest.inviteEvening" />
             </span>
             Attending: <input type="checkbox" ng-model="newGuest.attendEvening" />
-            <span ng-if="newGuest.partner">| <input type="checkbox" ng-model="newGuest.partner.attendEvening" /></span>
+            <span ng-if="newGuest.partner.name">| <input type="checkbox" ng-model="newGuest.partner.attendEvening" /></span>
         </p>
     </div>
     <div class="unit size1of5">

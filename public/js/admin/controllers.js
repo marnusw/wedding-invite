@@ -67,6 +67,17 @@ function($scope, Guests) {
     $scope.cancelNew = function() {
         $scope.newGuest = {};
     };
+    
+    $scope.countPlusOnes = function(event) {
+        var c, couples = $scope.guests.couples,
+            count = 0;
+        for (c in couples) {
+            if (couples[c].partnerAllowed && couples[c]['invite'+event] && !couples[c].partner) {
+                ++count;
+            }
+        }
+        return count;
+    };
 }])
 
 .controller('MorningController', ['$scope', 'Guests', 

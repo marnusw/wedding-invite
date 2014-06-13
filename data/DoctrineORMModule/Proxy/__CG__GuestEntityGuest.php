@@ -64,10 +64,10 @@ class Guest extends \Guest\Entity\Guest implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'id', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'name', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'surname', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'gender', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'email', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'connection', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'partner', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'viewedAt', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'repliedAt');
+            return array('__isInitialized__', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'id', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'name', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'surname', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'gender', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'email', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'connection', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'partner', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'partnerAllowed', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'viewedAt', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'repliedAt');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'id', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'name', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'surname', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'gender', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'email', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'connection', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'partner', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'viewedAt', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'repliedAt');
+        return array('__isInitialized__', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'id', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'name', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'surname', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'gender', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'email', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'connection', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'partner', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'partnerAllowed', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'inviteEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'viewedAt', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendMorning', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'attendEvening', '' . "\0" . 'Guest\\Entity\\Guest' . "\0" . 'repliedAt');
     }
 
     /**
@@ -291,6 +291,17 @@ class Guest extends \Guest\Entity\Guest implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getPartnerAllowed()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPartnerAllowed', array());
+
+        return parent::getPartnerAllowed();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getInviteMorning()
     {
 
@@ -440,6 +451,17 @@ class Guest extends \Guest\Entity\Guest implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPartner', array($partner));
 
         return parent::setPartner($partner);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setPartnerAllowed($partnerAllowed)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPartnerAllowed', array($partnerAllowed));
+
+        return parent::setPartnerAllowed($partnerAllowed);
     }
 
     /**
