@@ -3,16 +3,16 @@
     <div class="unit size1of2">
         <dl class="dl-horizontal">
             <dt>Morning:</dt>
-            <dd>
+            <dd title="Invited | Unconfirmed | Attending" style="cursor:default">
                 {{(guests.all | filter:{inviteMorning:true}).length}} | 
-                {{(guests.all | filter:{inviteMorning:true,attendMorning:true}).length}} | 
-                {{(guests.all | filter:{inviteMorning:true,attendMorning:null}).length}}
+                {{(guests.all | filter:{inviteMorning:true,attendMorning:null}).length}} | 
+                {{(guests.all | filter:{inviteMorning:true,attendMorning:true}).length}}
             </dd>
             <dt>Evening:</dt>
-            <dd>
+            <dd title="Invited | Unconfirmed | Attending" style="cursor:default">
                 {{(guests.all | filter:{inviteEvening:true}).length}} | 
-                {{(guests.all | filter:{inviteEvening:true,attendEvening:true}).length}} | 
-                {{(guests.all | filter:{inviteEvening:true,attendEvening:null}).length}}
+                {{(guests.all | filter:{inviteEvening:true,attendEvening:null}).length}} | 
+                {{(guests.all | filter:{inviteEvening:true,attendEvening:true}).length}}
             </dd>
         </dl>
     </div>

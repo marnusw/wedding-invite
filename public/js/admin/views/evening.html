@@ -2,9 +2,11 @@
 <section class="line">
     <div class="unit size1of3">
         <dl class="dl-horizontal">
-            <dt>Evening invited:</dt>
+            <dt>Invited:</dt>
             <dd>{{(guests.all | filter:{inviteEvening:true}).length}}</dd>
-            <dt>Evening attending:</dt>
+            <dt>Unconfirmed:</dt>
+            <dd>{{(guests.all | filter:{inviteEvening:true,attendEvening:null}).length}}</dd>
+            <dt>Attending:</dt>
             <dd>{{(guests.all | filter:{inviteEvening:true,attendEvening:true}).length}}</dd>
         </dl>
     </div>
