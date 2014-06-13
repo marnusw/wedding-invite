@@ -16,13 +16,13 @@ function($scope, Guests) {
     };
     $scope.cancel = function(guest, $event) {
         delete $scope.editing[guest.id];
-        stop($event);
+        $event && stop($event);
     };
     $scope.save = function(guest, $event) {
         if ($scope.editing[guest.id]) {
             delete $scope.editing[guest.id];
             Guests.update(guest).then(function() {
-                $scope.guests = Guests.refresh($scope.guests);
+                $scope.guests = Guests.refresh();
             });
         }
         $event && stop($event);
@@ -31,9 +31,6 @@ function($scope, Guests) {
     $scope.deleteBoth = function(guest, $event) {
         var yes = confirm('Are you sure you want to delete ' + guest.name + ' and his/her partner?');
         if (yes) {
-            console.log($scope.guests.all.indexOf(guest), 1);
-            console.log($scope.guests.all.indexOf(guest.partner), 1);
-            console.log($scope.guests.couples.indexOf(guest), 1);
             $scope.guests.all.splice($scope.guests.all.indexOf(guest), 1);
             $scope.guests.all.splice($scope.guests.all.indexOf(guest.partner), 1);
             $scope.guests.couples.splice($scope.guests.couples.indexOf(guest), 1);
@@ -48,7 +45,7 @@ function($scope, Guests) {
             $scope.guests.all.splice($scope.guests.all.indexOf(guest.partner), 1);
             delete $scope.editing[guest.id];
             Guests.delete(guest.partner).then(function() {
-                $scope.guests = Guests.refresh($scope.guests);
+                $scope.guests = Guests.refresh();
             });
         }
         stop($event);
@@ -63,7 +60,7 @@ function($scope, Guests) {
     
     $scope.saveNew = function(guest) {
         Guests.save(guest).then(function() {
-            $scope.guests = Guests.refresh($scope.guests);
+            $scope.guests = Guests.refresh();
         });
         $scope.newGuest = {};
     };

@@ -5,8 +5,7 @@
 angular.module('troue.services', ['ngResource'])
  
 .factory('Guests', ['$resource', '$q', function($resource, $q) {
-    var men = null;
-    var women = null;
+    var _guests = null;
     
     var Guests = $resource('/guest-rest/:guestId', {}, {
         doSave: { method:'POST' },
@@ -18,13 +17,13 @@ angular.module('troue.services', ['ngResource'])
             method : 'DELETE',
             params : {guestId:''}
         },
-        query: {
+        doQuery: {
             method : 'GET',
             params : {guestId:''},
             transformResponse: function(data) {
                 var i, all = angular.fromJson(data);
-                women || (women = {});
-                men || (men = {});
+                var women = {};
+                var men = {};
                 for (i in all) {
                     if (all[i].gender == 'male') {
                         men[all[i].id] = all[i];
@@ -43,10 +42,9 @@ angular.module('troue.services', ['ngResource'])
                 for (i in women) {
                     couples.push(women[i]);
                 }
-                return {
-                    couples : couples,
-                    all : all
-                };
+                _guests.couples = couples;
+                _guests.all = all;
+                return _guests;
             }
         }
     });
@@ -57,11 +55,27 @@ angular.module('troue.services', ['ngResource'])
             partner.connection = guest.connection;
             partner.inviteMorning = guest.inviteMorning;
             partner.inviteEvening = guest.inviteEvening;
-            partner.attendMorning = guest.attendMorning;
-            partner.attendEvening = guest.attendEvening;
             partner.repliedAt = guest.repliedAt;
             return partner;
         }
+    };
+    
+    Guests.query = function() {
+        if (_guests) {
+            return _guests;
+        }
+        _guests = {};
+        Guests.doQuery(function(result) {
+            angular.extend(_guests, result);
+        });
+        return _guests;
+    };
+    
+    Guests.refresh = function() {
+        Guests.doQuery(function(result) {
+            angular.extend(_guests, result);
+        });
+        return _guests;
     };
     
     Guests.save = function(guest) {
@@ -106,14 +120,6 @@ angular.module('troue.services', ['ngResource'])
             }
         });
         return $q.all(gd, pd);
-    };
-    
-    Guests.refresh = function(guests) {
-        var guests = guests;
-        Guests.query(function(result) {
-            angular.extend(guests, result);
-        });
-        return guests;
     };
     
     return Guests;
