@@ -14,5 +14,7 @@ angular.module('troue', [
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/guests', {templateUrl: '/js/admin/views/guests.html', controller: 'GuestsController'});
+  $routeProvider.when('/morning', {templateUrl: '/js/admin/views/morning.html', controller: 'MorningController'});
+  $routeProvider.when('/evening', {templateUrl: '/js/admin/views/evening.html', controller: 'EveningController'});
   $routeProvider.otherwise({redirectTo: '/guests'});
 }]);

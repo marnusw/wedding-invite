@@ -1,0 +1,39 @@
+<h1 class="indented">Evening guest list</h1>
+<section class="line">
+    <div class="unit size1of3">
+        <dl class="dl-horizontal">
+            <dt>Evening invited:</dt>
+            <dd>{{(guests.all | filter:{inviteEvening:true}).length}}</dd>
+            <dt>Evening attending:</dt>
+            <dd>{{(guests.all | filter:{inviteEvening:true,attendEvening:true}).length}}</dd>
+        </dl>
+    </div>
+    <div class="unit size2of3">
+        Final list: <input type="checkbox" ng-model="final" ng-change="toggleFinal()" />
+        Search: <input ng-model="query">
+        Sort by:
+        <select ng-model="orderBy">
+            <option value="name">Name</option>
+            <option value="surname">Surname</option>
+            <option value="connection">For</option>
+        </select>
+    </div>
+</section>
+<table class="table table-condensed" style="width:60%;margin:0 auto" cellpadding="0" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Name & Surname</th>
+            <th>Partner Name & Surname</th>
+            <th>For</th>
+            <th>Attending</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="guest in guests.couples | filter:filterFinal | filter:query | orderBy:orderBy">
+            <td>{{guest.partner || guest.gender == 'male' ? (guest | fullName) : ''}}</td>
+            <td>{{guest.partner ? (guest.partner | fullName) : (guest.gender == 'female' ? (guest | fullName) : '')}}</td>
+            <td>{{guest.connection}}</td>
+            <td>{{guest.attendEvening | checkmark}}</td>
+        </tr>
+    </tbody>
+</table>

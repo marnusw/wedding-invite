@@ -1,4 +1,4 @@
-<h1 class="indented">Gastelys</h1>
+<h1 class="indented">Guest list</h1>
 <section class="line">
     <div class="unit size1of2">
         <dl class="dl-horizontal">
@@ -30,7 +30,6 @@
             <option value="attendEvening">Attend Evening</option>
         </select>
     </div>
-    <div class="unit lastUnit size1of2"></div>
 </section>
 <section class="line block spaced" ng-repeat="guest in guests.couples | filter:query | orderBy:orderBy"
          ng-click="edit(guest)">

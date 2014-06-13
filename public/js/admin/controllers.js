@@ -46,4 +46,40 @@ function($scope, Guests) {
     $scope.updatePartner = function(guest, partner) {
         console.log('New partner for', guest.name, '->', partner);
     };
+}])
+
+.controller('MorningController', ['$scope', 'Guests', 
+function($scope, Guests) {
+    $scope.guests = Guests.query();
+    $scope.orderBy = 'name';
+    $scope.final = false;
+    $scope.filterFinal = {
+        inviteMorning : true
+    };
+    
+    $scope.toggleFinal = function() {
+        if ($scope.filterFinal.attendMorning) {
+            delete $scope.filterFinal.attendMorning;
+        } else {
+            $scope.filterFinal.attendMorning = true;
+        }
+    };
+}])
+
+.controller('EveningController', ['$scope', 'Guests', 
+function($scope, Guests) {
+    $scope.guests = Guests.query();
+    $scope.orderBy = 'name';
+    $scope.final = false;
+    $scope.filterFinal = {
+        inviteEvening : true
+    };
+    
+    $scope.toggleFinal = function() {
+        if ($scope.filterFinal.attendEvening) {
+            delete $scope.filterFinal.attendEvening;
+        } else {
+            $scope.filterFinal.attendEvening = true;
+        }
+    };
 }]);

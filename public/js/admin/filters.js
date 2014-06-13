@@ -30,7 +30,7 @@ angular.module('troue.filters', [])
     return function(values) {
         var text;
         if (values[0] !== true && values[0] !== false) {
-            return '-';
+            return '';
         } else {
             text = values[0] === true ? '\u2713' : '\u2718';
         }
