@@ -22,6 +22,16 @@ function($scope, Guests) {
         if ($scope.editing[guest.id]) {
             delete $scope.editing[guest.id];
             Guests.update({guestId:guest.id}, guest);
+            if (guest.partner) {
+                var partner = guest.partner;
+                partner.connection = guest.connection;
+                partner.inviteMorning = guest.inviteMorning;
+                partner.inviteEvening = guest.inviteEvening;
+                partner.attendMorning = guest.attendMorning;
+                partner.attendEvening = guest.attendEvening;
+                partner.repliedAt = guest.repliedAt;
+                Guests.update({guestId:partner.id}, partner);
+            }
         }
         stop($event);
     };
