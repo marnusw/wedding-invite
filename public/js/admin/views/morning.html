@@ -24,17 +24,17 @@
 <table class="table table-condensed" style="width:60%;margin:0 auto" cellpadding="0" cellspacing="0">
     <thead>
         <tr>
+            <th>For</th>
             <th>Name & Surname</th>
             <th>Partner Name & Surname</th>
-            <th>For</th>
             <th>Attending</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="guest in guests.couples | filter:filterFinal | orderBy:orderBy">
+            <td>{{guest.connection}}</td>
             <td>{{guest.partner || guest.gender == 'male' ? (guest | fullName) : ''}}</td>
             <td>{{guest.partner ? (guest.partner | fullName) : (guest.gender == 'female' ? (guest | fullName) : '')}}</td>
-            <td>{{guest.connection}}</td>
             <td>{{guest.attendMorning | checkmark}}</td>
         </tr>
     </tbody>

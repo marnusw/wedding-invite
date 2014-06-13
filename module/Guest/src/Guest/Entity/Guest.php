@@ -43,10 +43,10 @@ class Guest implements InputFilterAwareInterface {
      */
     private $partner;
     
-    /** @ORM\Column(type="boolean") */
+    /** @ORM\Column(type="boolean", nullable=true) */
     private $inviteMorning;
 
-    /** @ORM\Column(type="boolean") */
+    /** @ORM\Column(type="boolean", nullable=true) */
     private $inviteEvening;
 
     /** @ORM\Column(type="datetime", name="viewed_at", nullable=true) */
@@ -208,8 +208,11 @@ class Guest implements InputFilterAwareInterface {
         $this->email = $email;
     }
 
-    public function setPartner(Guest $partner) {
+    public function setPartner(Guest $partner = null) {
         $this->partner = $partner;
+        if ($partner !== null && $partner->getPartner() !== $this) {
+            $partner->setPartner($this);
+        }
     }
 
     public function setViewedAt($viewedAt) {

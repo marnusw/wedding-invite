@@ -434,7 +434,7 @@ class Guest extends \Guest\Entity\Guest implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setPartner(\Guest\Entity\Guest $partner)
+    public function setPartner(\Guest\Entity\Guest $partner = NULL)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPartner', array($partner));

@@ -43,11 +43,17 @@ class GuestRestController extends AbstractRestfulController
     }
 
     public function create($data) {
-        $guest = new Guest($data);
         $em = $this->getEntityManager();
+        $guest = new Guest($data);
         $em->persist($guest);
-        $em->flush();
+        
+        if (isset($data['partner'])) {
+            $partner = new Guest($data['partner']);
+            $em->persist($partner);
+            $guest->setPartner($partner);
+        }
 
+        $em->flush();
         $response = $this->getResponseWithHeader()
                          ->setContent($guest->toJson());
         return $response;
@@ -61,12 +67,41 @@ class GuestRestController extends AbstractRestfulController
         $response = $this->getResponseWithHeader();
         if ($guest) {
             $guest->populate($data);
+            
+            if (isset($data['partner']) && !isset($data['partner']['id'])) {
+                $data['partner']['gender'] = $guest->getGender() == 'male' ? 'female' : 'male';
+                $partner = new Guest($data['partner']);
+                $em->persist($partner);
+                $guest->setPartner($partner);
+            }
+            
             $em->flush();
             $response->setContent($guest->toJson());
         } else {
             $response->setContent("Error: guest {$id} not found");
         }
         return $response;
+    }
+    
+    /**
+     * Delete an existing resource
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function delete($id)
+    {
+        $em = $this->getEntityManager();
+        $guest = $this->getEntityManager()->find('Guest\Entity\Guest', $id);
+        $partner = $guest->getPartner();
+        if ($partner) {
+            $guest->setPartner(null);
+            $partner->setPartner(null);
+        }
+        $em->remove($guest);
+        $em->flush();
+        
+        return $this->getResponseWithHeader();
     }
 
     private function getResponseWithHeader() {
