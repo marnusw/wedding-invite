@@ -68,7 +68,7 @@ class GuestRestController extends AbstractRestfulController
         if ($guest) {
             $guest->populate($data);
             
-            if (isset($data['partner']) && !isset($data['partner']['id'])) {
+            if (isset($data['partner']) && is_array($data['partner']) && !isset($data['partner']['id'])) {
                 $data['partner']['gender'] = $guest->getGender() == 'male' ? 'female' : 'male';
                 $partner = new Guest($data['partner']);
                 $em->persist($partner);

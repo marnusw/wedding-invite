@@ -3,7 +3,7 @@
     <div class="unit size1of3">
         <dl class="dl-horizontal">
             <dt>Invited:</dt>
-            <dd>{{(guests.all | filter:{inviteEvening:true}).length}}</dd>
+            <dd>{{(guests.all | filter:{inviteEvening:true}).length + countPlusOnes('Morning')}}</dd>
             <dt>Unconfirmed:</dt>
             <dd>{{(guests.all | filter:{inviteEvening:true,attendEvening:null}).length}}</dd>
             <dt>Attending:</dt>

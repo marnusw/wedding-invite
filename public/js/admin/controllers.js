@@ -96,6 +96,17 @@ function($scope, Guests) {
             $scope.filterFinal.attendMorning = true;
         }
     };
+    
+    $scope.countPlusOnes = function(event) {
+        var c, couples = $scope.guests.couples,
+            count = 0;
+        for (c in couples) {
+            if (couples[c].partnerAllowed && couples[c]['invite'+event] && !couples[c].partner) {
+                ++count;
+            }
+        }
+        return count;
+    };
 }])
 
 .controller('EveningController', ['$scope', 'Guests', 
@@ -113,5 +124,16 @@ function($scope, Guests) {
         } else {
             $scope.filterFinal.attendEvening = true;
         }
+    };
+    
+    $scope.countPlusOnes = function(event) {
+        var c, couples = $scope.guests.couples,
+            count = 0;
+        for (c in couples) {
+            if (couples[c].partnerAllowed && couples[c]['invite'+event] && !couples[c].partner) {
+                ++count;
+            }
+        }
+        return count;
     };
 }]);
