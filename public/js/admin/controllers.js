@@ -136,4 +136,13 @@ function($scope, Guests) {
         }
         return count;
     };
+}])
+
+.controller('RsvpController', ['$scope', 'Guests', 
+function($scope, Guests) {
+    $scope.guests = Guests.query();
+    
+    $scope.identify = '';
+    $scope.guest = null;
+    
 }]);

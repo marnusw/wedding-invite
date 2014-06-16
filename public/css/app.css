@@ -59,6 +59,7 @@
 .mll,.mhl,.mal { margin-left:20px }
 
 .table td.txtr, .table th.txtr { text-align: right }
+.txtc { text-align: center }
 
 /*-------------------------------------------------------------------------------------*/
 /* Layout styles                                                                       */

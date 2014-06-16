@@ -21,15 +21,17 @@ angular.module('troue.services', ['ngResource'])
             method : 'GET',
             params : {guestId:''},
             transformResponse: function(data) {
-                var i, all = angular.fromJson(data);
-                var women = {};
-                var men = {};
+                var i, all = angular.fromJson(data),
+                    women = {},
+                    men = {},
+                    names = [];
                 for (i in all) {
                     if (all[i].gender == 'male') {
                         men[all[i].id] = all[i];
                     } else {
                         women[all[i].id] = all[i];
                     }
+                    names.push( all[i].name + (all[i].surname ? ' ' + all[i].surname : '') );
                 }
                 var couples = [],
                     pid;
@@ -44,6 +46,7 @@ angular.module('troue.services', ['ngResource'])
                 }
                 _guests.couples = couples;
                 _guests.all = all;
+                _guests.names = names;
                 return _guests;
             }
         }

@@ -23,6 +23,13 @@
         }]
     }];
     
+    frameSets.JumpToEnd = [{
+        changes : [
+            {type: 'add', id: 'MN_Engage', x: 340, y: 300},
+            {type: 'add', id: 'Heart3', x: 25, y: 25}
+        ]
+    }];
+    
     frameSets.Start = [{
         changes : [
             {type: 'remove', id: 'EnterName'},
@@ -136,7 +143,7 @@
             {type: 'remove', id: 'MN_Crash'},
             {type: 'remove', id: 'Table_empty'}
         ],
-        duration : 2500
+        duration : 3500
     },{
         changes  : [{type: 'replace', oId: 'MN_TangleSad', nId: 'MN_TangleHappy'}],
         duration : 1500

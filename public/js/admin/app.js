@@ -6,6 +6,7 @@ angular.module('troue', [
   'ngResource',
   'ngSanitize',
   'ui.bootstrap.position',
+  'ui.bootstrap.typeahead',
   'ui.bootstrap.datepicker',
   'troue.filters',
   'troue.services',

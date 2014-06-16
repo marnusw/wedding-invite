@@ -8,6 +8,11 @@
 window.Animation = function(frames, repeat) {
     var base = this;
     
+    this.key = Animation.key++;
+    Animation.anims[this.key] = base;
+    
+    this.timer = false;
+    this.stopped = false;
     this.repeat = repeat || 0;
     this.frames = frames;
     this.counter = 0;
@@ -15,10 +20,19 @@ window.Animation = function(frames, repeat) {
     this.start = function() {
         this.processFrame();
     };
+    this.stop = function() {
+        delete Animation.anims[base.key];
+        Animation.stop[base.key] = true;
+    };
 
-    var procFrame = this.processFrame = function() {
+    this.processFrame = function() {
+        if (Animation.stop[base.key]) {
+            base.stop();
+            return;
+        }
         if (base.counter >= base.frames.length) {
             if (!base.repeat) {
+                base.stop();
                 return; // End of the animation.
             } else {
                 base.counter = 0;
@@ -40,7 +54,9 @@ window.Animation = function(frames, repeat) {
             }
         }
         if (frame.duration) {
-            setTimeout(procFrame, frame.duration);
+            setTimeout(base.processFrame, frame.duration);
+        } else {
+            base.stop();
         }
     };
 
@@ -90,4 +106,15 @@ window.Animation = function(frames, repeat) {
     this.startNewAnim = function(frameSet, repeat) {
         new Animation(frameSets[frameSet], repeat).start();
     };
+};
+
+window.Animation.anims = {};
+window.Animation.stop = {};
+window.Animation.key = 0;
+
+window.Animation.stopAll = function() {
+    var a, anims = window.Animation.anims;
+    for (a in anims) {
+        anims[a].stop();
+    }
 };
