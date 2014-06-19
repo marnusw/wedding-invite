@@ -31,7 +31,7 @@ return array(
             'guest' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    'route'    => '/admin',
+                    'route'    => '/admin_hidden',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Guest\Controller',
                         'controller'    => 'Admin',
