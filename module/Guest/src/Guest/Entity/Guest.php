@@ -10,7 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-/** @ORM\Entity */
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="guest")
+ */
 class Guest implements InputFilterAwareInterface {
 
     /**
