@@ -24,7 +24,7 @@
             width: 219
         },
         N_fly : {
-            src : '/img/N fly.png',
+            src : '/img/N flies.png',
             height: 145,
             width: 157
         },

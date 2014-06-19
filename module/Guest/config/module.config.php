@@ -18,6 +18,16 @@ return array(
                     ),
                 ),
             ),
+            'invite' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/invite',
+                    'defaults' => array(
+                        'controller' => 'Guest\Controller\Invite',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
             'guest' => array(
                 'type'    => 'Literal',
                 'options' => array(
@@ -70,6 +80,7 @@ return array(
         'invokables' => array(
             'Guest\Controller\Index' => 'Guest\Controller\IndexController',
             'Guest\Controller\Admin' => 'Guest\Controller\AdminController',
+            'Guest\Controller\Invite' => 'Guest\Controller\InviteController',
         ),
     ),
     'view_manager' => array(
