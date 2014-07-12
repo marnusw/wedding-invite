@@ -2,10 +2,15 @@
 (function() {
     
     window.Images = {
-        ClickStart : {
-            src : '/img/ClickStart.png',
-            height: 117,
-            width: 276
+        EnterName : {
+            src : '/img/EnterName.png',
+            height: 75,
+            width: 551
+        },
+        BeginClick : {
+            src : '/img/Begin.png',
+            height: 66,
+            width: 115
         },
         
         N_table : {

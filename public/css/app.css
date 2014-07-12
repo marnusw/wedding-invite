@@ -159,6 +159,10 @@ input.short {
   line-height: 17px;
 }
 
+.clickable {
+    cursor: pointer;
+}
+
 /*-------------------------------------------------------------------------------------*/
 /* Animations                                                                          */
 /*-------------------------------------------------------------------------------------*/
@@ -167,6 +171,6 @@ input.short {
     position: relative;
 }
 
-img.anim {
+input.anim, img.anim {
     position: absolute;
 }

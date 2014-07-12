@@ -7,15 +7,27 @@
     
     frameSets.SetUp = [{
         changes : [{
-                type: 'add', id: 'ClickStart', 
-                x: center.x - Images.ClickStart.width/2, 
-                y: center.y - Images.ClickStart.height/2
+            type: 'add', id: 'EnterName', 
+            x: center.x - Images.EnterName.width/2, 
+            y: center.y - Images.EnterName.height - 50
+        },{
+            type: 'addHtml',
+            html: '<input id="EnterNameInput" type="text" class="anim" style="width:200px" />',
+            x: center.x - 100, 
+            y: center.y - 40
+        },{
+            type: 'add', id: 'BeginClick', 
+            x: center.x - Images.BeginClick.width/2, 
+            y: center.y,
+            css: 'clickable'
         }]
     }];
     
     frameSets.Start = [{
         changes : [
-            {type: 'remove', id: 'ClickStart'},
+            {type: 'remove', id: 'EnterName'},
+            {type: 'remove', id: 'EnterNameInput'},
+            {type: 'remove', id: 'BeginClick'},
             {type: 'start', frameSet: 'TypingStart'},
             {type: 'start', frameSet: 'Explosion'}
         ]

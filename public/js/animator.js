@@ -29,11 +29,12 @@ window.Animation = function(frames, repeat) {
         for (c in frame.changes) {
             var change = frame.changes[c];
             switch (change.type) {
-                case 'add'      : base.add(change.id, change.x, change.y); break;
+                case 'add'      : base.add(change.id, change.x, change.y, change.css); break;
                 case 'replace'  : base.replace(change.oId, change.nId); break;
                 case 'move'     : base.move(change.id, change.x, change.y, change.dur); break;
                 case 'remove'   : base.remove(change.id); break;
                 case 'start'    : base.startNewAnim(change.frameSet, change.repeat); break;
+                case 'addHtml'  : base.addHtml(change.html, change.x, change.y); break;
                 case 'callback' : window[change.func](); break;
                 default : throw 'Unknown animation change type: ' + change.type;
             }
@@ -43,9 +44,9 @@ window.Animation = function(frames, repeat) {
         }
     };
 
-    this.add = function(id, x, y) {
+    this.add = function(id, x, y, css) {
         var attrs = Images[id],
-            img = $('<img class="anim" id="'+id+'" src="'+attrs.src+'" height="'+attrs.height+'" width="'+attrs.width+'">');
+            img = $('<img class="anim '+css+'" id="'+id+'" src="'+attrs.src+'" height="'+attrs.height+'" width="'+attrs.width+'">');
         img.appendTo('.page-content')
            .css({
                left : x,
@@ -76,6 +77,14 @@ window.Animation = function(frames, repeat) {
         if (img.length) {
             img.remove();
         }
+    };
+
+    this.addHtml = function(html, x, y) {
+        $(html).appendTo('.page-content')
+               .css({
+                   left : x,
+                   top : y
+               });
     };
 
     this.startNewAnim = function(frameSet, repeat) {

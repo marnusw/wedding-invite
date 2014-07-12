@@ -6,7 +6,7 @@ $(document).ready(function() {
     anim.start();
 });
 
-$(document).on('click', '#ClickStart', function() {
+$(document).on('click', '#BeginClick', function() {
     var anim = new Animation(frameSets.Start);
 //    var anim = new Animation(frameSets.NAfly);
     anim.start();
