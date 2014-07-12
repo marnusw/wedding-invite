@@ -17,9 +17,9 @@ $(document).on('click', '#ClickReset', function() {
 
 $(document).on('click', '#ClickSkip', function() {
     Animation.stopAll();
-    $('.page-content').html('');
-    var anim = new Animation(frameSets.JumpToEnd);
-    anim.start();
+//    $('.page-content').html('');
+//    var anim = new Animation(frameSets.JumpToEnd);
+//    anim.start();
     showInfo();
 });
 
@@ -35,8 +35,9 @@ window.showInfo = function() {
     $('#ClickReset').toggle();
     $('#ClickSkip').toggle();
     
-    $.get('/js/views/detail.html', function(data) {
-        $('.page-content').append(data);
+    $('body').css({'background':'#000'});
+    $.get('/js/views/invite-both.html', function(data) {
+        $('#page').html(data);
     });
 };
 

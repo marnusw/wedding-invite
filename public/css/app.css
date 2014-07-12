@@ -175,3 +175,14 @@ input.short {
 input.anim, img.anim {
     position: absolute;
 }
+
+/*-------------------------------------------------------------------------------------*/
+/* Detail pages                                                                        */
+/*-------------------------------------------------------------------------------------*/
+
+.detail-page {
+    width: 960px;
+    height: 641px;
+    margin:0 auto;
+    background-repeat: no-repeat;
+}
