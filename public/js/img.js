@@ -9,8 +9,8 @@
         },
         BeginClick : {
             src : '/img/Begin.png',
-            height: 66,
-            width: 115
+            height: 70,
+            width: 156
         },
         
         N_table : {

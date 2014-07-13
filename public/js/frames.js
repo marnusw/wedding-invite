@@ -12,14 +12,16 @@
             y: center.y - Images.EnterName.height - 50
         },{
             type: 'addHtml',
-            html: '<input id="EnterNameInput" type="text" class="anim" style="width:200px" />',
-            x: center.x - 100, 
+            html: '<div class="anim"><input id="EnterNameInput" type="text" class="typeahead" /></div>',
+            x: 340, 
             y: center.y - 40
         },{
             type: 'add', id: 'BeginClick', 
             x: center.x - Images.BeginClick.width/2, 
-            y: center.y,
+            y: center.y + 20,
             css: 'clickable'
+        },{
+            type: 'callback', func: 'addTypeahead'
         }]
     }];
     
@@ -181,7 +183,7 @@
     },{
         changes  : [
             {type: 'replace', oId: 'MN_Engage', nId: 'MN_Wedding'},
-            {type: 'callback', func: 'showInfo'}
+            {type: 'callback', func: 'showInvite'}
         ]
     }];
     
