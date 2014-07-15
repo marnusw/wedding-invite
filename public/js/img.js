@@ -86,11 +86,6 @@
             height: 244,
             width: 240
         },
-        MN_Wedding : {
-            src : '/img/Big Question.png',
-            height: 244,
-            width: 240
-        },
         
         Heart : {
             src : '/img/Heart large.png',
@@ -108,11 +103,6 @@
             width: 493
         },
         Heart3 : {
-            src : '/img/Skryf 3.png',
-            height: 411,
-            width: 493
-        },
-        HeartInvite : {
             src : '/img/Skryf 3.png',
             height: 411,
             width: 493

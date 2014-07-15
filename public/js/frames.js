@@ -169,20 +169,15 @@
         duration : 1500
     },{
         changes  : [{type: 'replace', oId: 'MN_TangleAngry', nId: 'MN_TangleHappy'}],
-        duration : 4000
-    },{
-        changes  : [{type: 'move', id: 'Heart3', x: 25, y: 25, dur: 3000}],
-        duration : 3300
+        duration : 3000
     },{
         changes  : [
             {type: 'remove', id: 'MN_TangleHappy'},
-            {type: 'add', id: 'MN_Engage', x: 340, y: 300},
-            {type: 'replace', oId: 'Heart3', nId: 'HeartInvite'}
+            {type: 'add', id: 'MN_Engage', x: 290, y: 300}
         ],
         duration : 4000
     },{
         changes  : [
-            {type: 'replace', oId: 'MN_Engage', nId: 'MN_Wedding'},
             {type: 'callback', func: 'showInvite'}
         ]
     }];
