@@ -47,6 +47,24 @@ class AdminController extends AbstractActionController
         return array('form' => $form);
     }
     
+    public function guestListCsvAction()
+    {
+        $guests = $this->getEntityManager()->getRepository('Guest\Entity\Guest')->findAll();
+        $header = array('Email Address', 'First Name');
+        $records = array();
+        
+        foreach ($guests as $guest) {
+            $name = $guest->getName();
+            $partner = $guest->getPartner();
+            if ($partner !== null) {
+                $name .= ' en ' . $partner->getName();
+            }
+            array_push($records, array($guest->getEmail(), $name));
+        }
+
+        return $this->csvExport('GuestList.csv', $header, $records);
+    }
+    
     private function saveGuests($guestsData) {
         $em = $this->getEntityManager();
         
