@@ -89,23 +89,23 @@
         
         Heart : {
             src : '/img/Heart large.png',
-            height: 411,
-            width: 493
+            height: 420,
+            width: 504
         },
         Heart1 : {
             src : '/img/Skryf 1.png',
-            height: 411,
-            width: 493
+            height: 420,
+            width: 504
         },
         Heart2 : {
             src : '/img/Skryf 2.png',
-            height: 411,
-            width: 493
+            height: 420,
+            width: 504
         },
         Heart3 : {
             src : '/img/Skryf 3.png',
-            height: 411,
-            width: 493
+            height: 420,
+            width: 504
         },
         
         Step_fly : {
