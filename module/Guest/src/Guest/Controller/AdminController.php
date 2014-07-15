@@ -65,6 +65,66 @@ class AdminController extends AbstractActionController
         return $this->csvExport('GuestList.csv', $header, $records);
     }
     
+    public function bothListCsvAction()
+    {
+        $guests = $this->getEntityManager()->getRepository('Guest\Entity\Guest')->findAll();
+        $header = array('Email Address', 'First Name');
+        $records = array();
+        
+        foreach ($guests as $guest) {
+            if ($guest->getInviteMorning() && $guest->getInviteEvening()) {
+                $name = $guest->getName();
+                $partner = $guest->getPartner();
+                if ($partner !== null) {
+                    $name .= ' en ' . $partner->getName();
+                }
+                array_push($records, array($guest->getEmail(), $name));
+            }
+        }
+
+        return $this->csvExport('BothList.csv', $header, $records);
+    }
+    
+    public function morningListCsvAction()
+    {
+        $guests = $this->getEntityManager()->getRepository('Guest\Entity\Guest')->findAll();
+        $header = array('Email Address', 'First Name');
+        $records = array();
+        
+        foreach ($guests as $guest) {
+            if ($guest->getInviteMorning()) {
+                $name = $guest->getName();
+                $partner = $guest->getPartner();
+                if ($partner !== null) {
+                    $name .= ' en ' . $partner->getName();
+                }
+                array_push($records, array($guest->getEmail(), $name));
+            }
+        }
+
+        return $this->csvExport('MorningList.csv', $header, $records);
+    }
+    
+    public function eveningListCsvAction()
+    {
+        $guests = $this->getEntityManager()->getRepository('Guest\Entity\Guest')->findAll();
+        $header = array('Email Address', 'First Name');
+        $records = array();
+        
+        foreach ($guests as $guest) {
+            if ($guest->getInviteEvening()) {
+                $name = $guest->getName();
+                $partner = $guest->getPartner();
+                if ($partner !== null) {
+                    $name .= ' en ' . $partner->getName();
+                }
+                array_push($records, array($guest->getEmail(), $name));
+            }
+        }
+
+        return $this->csvExport('EveningList.csv', $header, $records);
+    }
+    
     private function saveGuests($guestsData) {
         $em = $this->getEntityManager();
         
