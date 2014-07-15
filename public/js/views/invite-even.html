@@ -1,10 +1,25 @@
-<div class="detail-page" style="background: url(/img/InfoEvening.png);">
-    <div>
-        <section class="txtc">
-            <form>
-                <input type="text" />
-                <button type="submit">OK</button>
-            </form>
-        </section>
+<div class="detail-page" style="background: url(/img/InviteEvening.png);">
+    <div id="invite-names"></div>
+    <form id="rsvp-form">
+        <div class="line">
+            <span id="guestName" class="rsvp-name unit size1of3 txtr"></span>
+            &nbsp;<input type="radio" name="guestRsvp" value="true" />&nbsp;<span>Ek sal kom</span>
+            &nbsp;<input type="radio" name="guestRsvp" value="false" />&nbsp;<span>Ek sal nie kan kom nie</span>
+        </div>
+        <div class="line">
+            <span id="partnerName" class="rsvp-name unit size1of3 txtr"></span>
+            &nbsp;<input type="radio" name="partnerRsvp" value="true" />&nbsp;<span>Ek sal kom</span>
+            &nbsp;<input type="radio" name="partnerRsvp" value="false" />&nbsp;<span>Ek sal nie kan kom nie</span>
+        </div>
+        <div class="txtc" style="margin-top: 5px">
+            <button class="btn" type="submit">Gaan voort</button>
+        </div>
+    </form>
+    <div id="rsvp-yes">
+        <p>Dankie, ons sien uit om julle daar te sien!</p>
     </div>
+    <div id="rsvp-no">
+        <p>Ons sal julle mis! Dankie dat jy laat weet het.</p>
+    </div>
+    <div id="MoreInfo" class="bottom-nav-link"><a>Meer inligting >></a></div>
 </div>

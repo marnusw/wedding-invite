@@ -143,13 +143,13 @@ function setupFor(fullName) {
     partner = findPartner(guest);
     
     if (guest.inviteMorning && guest.inviteEvening) {
-        inviteUrl = '/js/views/invite-both.html';
+        inviteUrl = partner ? '/js/views/invite-both.html' : '/js/views/invite-both-single.html';
         infoUrl = '/js/views/info-both.html';
     } else if (guest.inviteMorning) {
-        inviteUrl = '/js/views/invite-morn.html';
+        inviteUrl = partner ? '/js/views/invite-both.html' : '/js/views/invite-morn-single.html';
         infoUrl = '/js/views/info-morn.html';
     } else {
-        inviteUrl = '/js/views/invite-even.html';
+        inviteUrl = partner ? '/js/views/invite-both.html' : '/js/views/invite-even-single.html';
         infoUrl = '/js/views/info-even.html';
     }
     return true;
