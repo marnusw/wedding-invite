@@ -80,22 +80,52 @@ class Guest implements InputFilterAwareInterface {
         $keys = get_object_vars($this);
         unset($keys['id']);
         unset($keys['partner']);
-
+        
+        if (isset($values['viewedAt'])) {
+            $this->setViewedAt( new \DateTime($values['viewedAt']) );
+            unset($values['viewedAt']);
+        }
+        if (isset($values['repliedAt'])) {
+            $this->repliedAt = new \DateTime($values['repliedAt']);
+            unset($values['repliedAt']);
+        }
+        
+        $this->setBoolean($values, 'attendMorning');
+        unset($values['attendMorning']);
+        $this->setBoolean($values, 'attendEvening');
+        unset($values['attendEvening']);
+        $this->setBoolean($values, 'inviteEvening');
+        unset($values['inviteEvening']);
+        $this->setBoolean($values, 'inviteMorning');
+        unset($values['inviteMorning']);
+        $this->setBoolean($values, 'partnerAllowed');
+        unset($values['partnerAllowed']);
+        
         foreach ($keys as $key => $v) {
             if (isset($values[$key]) && !is_null($values[$key])) {
+                if ($values[$key] === null) {
+                    continue;
+                }
                 $this->{$key} = $values[$key];
             }
         }
     }
-
+    
+    private function setBoolean($values, $key) {
+        if (isset($values[$key]) && ($values[$key] === 'true' || $values[$key] === 'false')) {
+            $this->{$key} = $values[$key] === 'true' ? true : false;
+        }
+    }
+    
     /**
      * @return array
      */
     public function getArrayCopy() {
         $vars = get_object_vars($this);
-        if (isset($vars['partner'])) {
-            $vars['partner'] = $vars['partner']->getId();
-        }
+        $vars['partner'] = isset($vars['partner']) ? $vars['partner']->getId() : null;
+        $vars['viewedAt'] = isset($vars['viewedAt']) ? $vars['viewedAt']->format('Y/m/d') : null;
+        $vars['repliedAt'] = isset($vars['repliedAt']) ? $vars['repliedAt']->format('Y/m/d') : null;
+        
         unset($vars['__initializer__']);
         unset($vars['__cloner__']);
         unset($vars['__isInitialized__']);
@@ -229,7 +259,9 @@ class Guest implements InputFilterAwareInterface {
     }
     
     public function setViewedAt($viewedAt) {
-        $this->viewedAt = $viewedAt;
+        if ($this->viewedAt == null) {
+            $this->viewedAt = $viewedAt;
+        }
     }
     
     public function setInviteMorning($inviteMorning) {

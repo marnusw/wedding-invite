@@ -10,6 +10,14 @@ function queryGuests() {
         guests = $.parseJSON(json);
         for (var i in guests) {
             guests[i].fullName = guests[i].name + ' ' + guests[i].surname;
+            for (var j in guests[i])
+            if (guests[i][j] === '' || guests[i][j] === null) {
+                guests[i][j] = null;
+            } else if (guests[i][j] == 'false') {
+                guests[i][j] = false;
+            } else if (guests[i][j] == 'true') {
+                guests[i][j] = true;
+            }
         }
     });
 }
@@ -17,19 +25,22 @@ function queryGuests() {
 $(document).ready(function() {
     if ($('#invite').length) {
         queryGuests();
-        resetAnimation();
+        $('body').css({'background':'#fff'});
+        var dfrd = $.get('/js/views/animation.html');
+        $.when(dfrd, gDfrd).done(function(data) {
+            $('#page').html(data[0]);
+            var anim = new Animation(frameSets.SetUp);
+            anim.start();
+        });
     }
 });
 
 $(document).on('click', '#BeginClick', function() {
     if (setupFor($('#EnterNameInput').val())) {
         var anim = new Animation(frameSets.Start);
+        $('#ClickSkip').show();
         anim.start();
     }
-});
-
-$(document).on('click', '#ClickReset', function() {
-    resetAnimation();
 });
 
 $(document).on('click', '#ClickSkip', function() {
@@ -66,13 +77,18 @@ $(document).on('click', '#rsvp-submit', function() {
         return false;
     }
     
+    var today = new Date();
+
+    guest.repliedAt = today.getFullYear() + '/' + (today.getMonth()+1) + '/' + today.getDate();
     guest.attendMorning = guest.inviteMorning && gAttend[0];
     guest.attendEvening = guest.inviteEvening && gAttend[1];
+    saveToServer(guest);
     if (partner) {
+        partner.repliedAt = today.getFullYear() + '/' + (today.getMonth()+1) + '/' + today.getDate();
         partner.attendMorning = partner.inviteMorning && pAttend[0];
         partner.attendEvening = partner.inviteEvening && pAttend[1];
+        saveToServer(partner);
     }
-    saveToServer();
     showRsvpDone();
     return false;
 });
@@ -94,36 +110,21 @@ function extractRsvp(type) {
     }
 }
 
-function resetAnimation() {
-    $('body').css({'background':'#fff'});
-    var dfrd = $.get('/js/views/animation.html');
-    $.when(dfrd, gDfrd).done(function(data) {
-        $('#page').html(data[0]);
-        $('#ClickReset').hide();
-        $('#ClickSkip').show();
-        var anim = new Animation(frameSets.SetUp);
-        anim.start();
-    });
-}
-
 window.showInvite = function() {
-    $('#ClickReset').show();
-    $('#ClickSkip').hide();
-    
+    console.log(guest);
     $.get(inviteUrl, function(data) {
-        $('#page').html(data);
         $('body').css({'background':'#000'});
+        $('#page').html(data);
+        var partnerName = partner ? ' en ' + partner.name : '';
+        $('#invite-names').html(guest.name + partnerName);
         showRsvpForm();
     });
 };
 
 function showInfo() {
-    $('#ClickReset').show();
-    $('#ClickSkip').hide();
-    
     $.get(infoUrl, function(data) {
-        $('#page').html(data);
         $('body').css({'background':'#000'});
+        $('#page').html(data);
     });
 }
 
@@ -135,13 +136,8 @@ function showRsvpForm(force) {
     $('#rsvp-form').show();
     $('#rsvp-yes').hide();
     $('#rsvp-no').hide();
-    var partnerName = '';
-    if (partner) {
-        $('#partnerName').html(partner.name.charAt(0).toUpperCase() + partner.name.slice(1) + ':');
-        partnerName = ' en ' + partner.name;
-    }
     $('#guestName').html(guest.name + ':');
-    $('#invite-names').html(guest.name + partnerName);
+    partner && $('#partnerName').html(partner.name.charAt(0).toUpperCase() + partner.name.slice(1) + ':');
 }
 
 function showRsvpDone() {
@@ -182,11 +178,39 @@ function setupFor(fullName) {
 }
 
 function saveViewTimeToServer() {
-    console.log(guest);
+    if (!guest.viewedAt) {
+        var today = new Date();
+        guest.viewedAt = today.getFullYear() + '/' + (today.getMonth()+1) + '/' + today.getDate();
+        saveToServer(guest);
+    }
 }
 
-function saveToServer() {
-    console.log(guest, partner);
+function saveToServer(person) {
+    $.ajax({
+        url: '/guest-rest/' + person.id,
+        type: 'PUT',
+        data: person,
+        success: parseReponse
+    });
+}
+
+function parseReponse(json) {
+    var i, data = $.parseJSON(json),
+        person = findGuest('id', data.id);
+    if (!person.partner && data['partner']) {
+        person.partner = data['partner'];
+    }
+    delete data['partner'];
+    for (i in data) {
+        if (data[i] === '' || data[i] === null) {
+            data[i] = null;
+        } else if (data[i] == 'false') {
+            data[i] = false;
+        } else if (data[i] == 'true') {
+            data[i] = true;
+        }
+        person[i] = data[i];
+    }
 }
 
 function findGuest(field, value) {
@@ -226,7 +250,7 @@ var substringMatcher = function(guests) {
     // iterate through the pool of strings and for any string that
     // contains the substring `q`, add it to the `matches` array
     $.each(guests, function(i, guest) {
-      if (substrRegex.test(guest.fullName)) {
+      if (substrRegex.test(guest.fullName) && guest.fullName !== 'jou metgesel') {
         // the typeahead jQuery plugin expects suggestions to a
         // JavaScript object, refer to typeahead docs for more info
         matches.push({ value: guest.fullName });
