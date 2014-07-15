@@ -90,6 +90,7 @@ $(document).on('click', '#rsvp-submit', function() {
         saveToServer(partner);
     }
     showRsvpDone();
+    setTimeout(showInfo, 3000);
     return false;
 });
 
