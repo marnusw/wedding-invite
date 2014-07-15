@@ -112,7 +112,9 @@ class Guest implements InputFilterAwareInterface {
     }
     
     private function setBoolean($values, $key) {
-        if (isset($values[$key]) && ($values[$key] === 'true' || $values[$key] === 'false')) {
+        if (isset($values[$key]) && ($values[$key] === true || $values[$key] === false)) {
+            $this->{$key} = $values[$key];
+        } elseif (isset($values[$key]) && ($values[$key] === 'true' || $values[$key] === 'false')) {
             $this->{$key} = $values[$key] === 'true' ? true : false;
         }
     }
