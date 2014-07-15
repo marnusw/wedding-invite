@@ -54,12 +54,14 @@ class AdminController extends AbstractActionController
         $records = array();
         
         foreach ($guests as $guest) {
-            $name = $guest->getName();
-            $partner = $guest->getPartner();
-            if ($partner !== null) {
-                $name .= ' en ' . $partner->getName();
+            if ($guest->getEmail() != '') {
+                $name = $guest->getName();
+                $partner = $guest->getPartner();
+                if ($partner !== null) {
+                    $name .= ' en ' . $partner->getName();
+                }
+                array_push($records, array($guest->getEmail(), $name));
             }
-            array_push($records, array($guest->getEmail(), $name));
         }
 
         return $this->csvExport('GuestList.csv', $header, $records);
@@ -72,7 +74,7 @@ class AdminController extends AbstractActionController
         $records = array();
         
         foreach ($guests as $guest) {
-            if ($guest->getInviteMorning() && $guest->getInviteEvening()) {
+            if ($guest->getInviteMorning() && $guest->getInviteEvening() && $guest->getEmail() != '') {
                 $name = $guest->getName();
                 $partner = $guest->getPartner();
                 if ($partner !== null) {
@@ -92,7 +94,7 @@ class AdminController extends AbstractActionController
         $records = array();
         
         foreach ($guests as $guest) {
-            if ($guest->getInviteMorning()) {
+            if ($guest->getInviteMorning() && $guest->getEmail() != '') {
                 $name = $guest->getName();
                 $partner = $guest->getPartner();
                 if ($partner !== null) {
@@ -112,7 +114,7 @@ class AdminController extends AbstractActionController
         $records = array();
         
         foreach ($guests as $guest) {
-            if ($guest->getInviteEvening()) {
+            if ($guest->getInviteEvening() && $guest->getEmail() != '') {
                 $name = $guest->getName();
                 $partner = $guest->getPartner();
                 if ($partner !== null) {
