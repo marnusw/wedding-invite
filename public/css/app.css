@@ -203,7 +203,7 @@ input.short {
     top: 30px;
 }
 
-#rsvp-form {
+#rsvp-yes, #rsvp-no, #rsvp-form {
     font-family: "Comic Sans MS", cursive, sans-serif;
     font-weight: bold;
     font-size: 14px;
@@ -214,8 +214,30 @@ input.short {
     color: #000;
 }
 
+#rsvp-form input[type=checkbox] {
+    margin-right: 2px;
+}
+
 #rsvp-form .btn {
     font-weight: bold;
+}
+
+#rsvp-yes, #rsvp-no {
+    text-align: center;
+    bottom: 66px;
+}
+
+#rsvp-yes a, #rsvp-no a, #rsvp-yes p, #rsvp-no p {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 0;
+}
+
+#rsvp-yes a, #rsvp-no a {
+    text-decoration: underline;
+    font-size: 14px;
 }
 
 .rsvp-name {

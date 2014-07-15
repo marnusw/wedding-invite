@@ -15,8 +15,10 @@ function queryGuests() {
 }
 
 $(document).ready(function() {
-    queryGuests();
-    resetAnimation();
+    if ($('#invite').length) {
+        queryGuests();
+        resetAnimation();
+    }
 });
 
 $(document).on('click', '#BeginClick', function() {
@@ -48,27 +50,49 @@ $(document).on('click', '#Resubmit', function() {
     showRsvpForm(true);
 });
 
-$(document).on('submit', '#rsvp-form', function() {
-    var gEl = $('input[name="guestRsvp"]:checked');
-    var pEl = $('input[name="partnerRsvp"]:checked');
-    if (!gEl) {
+$(document).on('click', '#rsvp-submit', function() {
+    var gAttend = extractRsvp('guest'),
+        pAttend;
+    if (partner) {
+        pAttend = extractRsvp('partner');
+    }
+    
+    if (!gAttend[0] && !gAttend[1] && !gAttend[2]) {
         alert("Dui asseblief aan of jy die troue sal kan bywoon.");
         return false;
     }
-    if (partner && !pEl) {
+    if (partner && !pAttend[0] && !pAttend[1] && !pAttend[2]) {
         alert("Dui asseblief aan of jou metgesel die troue sal kan bywoon.");
         return false;
     }
-    guest.attendMorning = (guest.inviteMorning & (gEl.val() == 'true' ? true : false)) ? true : false;
-    guest.attendEvening = (guest.inviteEvening & (gEl.val() == 'true' ? true : false)) ? true : false;
+    
+    guest.attendMorning = guest.inviteMorning && gAttend[0];
+    guest.attendEvening = guest.inviteEvening && gAttend[1];
     if (partner) {
-        partner.attendMorning = (partner.inviteMorning & (pEl.val() == 'true' ? true : false)) ? true : false;
-        partner.attendEvening = (partner.inviteEvening & (pEl.val() == 'true' ? true : false)) ? true : false;
+        partner.attendMorning = partner.inviteMorning && pAttend[0];
+        partner.attendEvening = partner.inviteEvening && pAttend[1];
     }
     saveToServer();
     showRsvpDone();
     return false;
 });
+
+$(document).on('click', '.rsvp-change', function() {
+    showRsvpForm(true);
+});
+
+function extractRsvp(type) {
+    if ($('input[name="guestRsvp"]').length) {
+        var attend = $('input[name="'+type+'Rsvp"]:checked').val() == 'true' ? true : false;
+        return [attend, attend, !attend];
+    } else {
+        return [
+            $('input[name="'+type+'RsvpMorn"]').prop('checked'),
+            $('input[name="'+type+'RsvpEven"]').prop('checked'),
+            $('input[name="'+type+'RsvpNo"]').prop('checked')
+        ];
+    }
+}
 
 function resetAnimation() {
     $('body').css({'background':'#fff'});
@@ -105,9 +129,10 @@ function showInfo() {
 
 
 function showRsvpForm(force) {
-    if (!showRsvpDone || force) {
+    if (!force && showRsvpDone()) {
         return;
     }
+    $('#rsvp-form').show();
     $('#rsvp-yes').hide();
     $('#rsvp-no').hide();
     var partnerName = '';
@@ -121,11 +146,11 @@ function showRsvpForm(force) {
 
 function showRsvpDone() {
     $('#rsvp-form').hide();
-    if (guest.attendMorning || guest.attendEvening || partner.attendMorning || partner.attendEvening) {
+    if (guest.attendMorning || guest.attendEvening || (partner && (partner.attendMorning || partner.attendEvening))) {
         $('#rsvp-yes').show();
         $('#rsvp-no').hide();
     } else if (guest.attendMorning !== null || guest.attendEvening !== null || 
-            partner.attendMorning !== null || partner.attendEvening !== null) {
+            (partner && (partner.attendMorning !== null || partner.attendEvening !== null))) {
         $('#rsvp-yes').hide();
         $('#rsvp-no').show();
     } else {
@@ -146,13 +171,18 @@ function setupFor(fullName) {
         inviteUrl = partner ? '/js/views/invite-both.html' : '/js/views/invite-both-single.html';
         infoUrl = '/js/views/info-both.html';
     } else if (guest.inviteMorning) {
-        inviteUrl = partner ? '/js/views/invite-both.html' : '/js/views/invite-morn-single.html';
+        inviteUrl = partner ? '/js/views/invite-morn.html' : '/js/views/invite-morn-single.html';
         infoUrl = '/js/views/info-morn.html';
     } else {
-        inviteUrl = partner ? '/js/views/invite-both.html' : '/js/views/invite-even-single.html';
+        inviteUrl = partner ? '/js/views/invite-even.html' : '/js/views/invite-even-single.html';
         infoUrl = '/js/views/info-even.html';
     }
+    saveViewTimeToServer();
     return true;
+}
+
+function saveViewTimeToServer() {
+    console.log(guest);
 }
 
 function saveToServer() {

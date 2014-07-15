@@ -1,6 +1,6 @@
 <div class="detail-page" style="background: url(/img/InviteMorning.png);">
-    <div id="invite-names"></div>
-    <form id="rsvp-form">
+    <div id="invite-names" style="top: 36px;"></div>
+    <form id="rsvp-form" style="bottom: 18px;">
         <div class="line">
             <span id="guestName" class="rsvp-name unit size1of3 txtr"></span>
             &nbsp;<input type="radio" name="guestRsvp" value="true" />&nbsp;<span>Ek sal kom</span>
@@ -11,15 +11,17 @@
             &nbsp;<input type="radio" name="partnerRsvp" value="true" />&nbsp;<span>Ek sal kom</span>
             &nbsp;<input type="radio" name="partnerRsvp" value="false" />&nbsp;<span>Ek sal nie kan kom nie</span>
         </div>
-        <div class="txtc" style="margin-top: 5px">
-            <button class="btn" type="submit">Gaan voort</button>
+        <div class="txtc" style="margin-top: 10px">
+            <button id="rsvp-submit" class="btn">Gaan voort</button>
         </div>
     </form>
     <div id="rsvp-yes">
         <p>Dankie, ons sien uit om julle daar te sien!</p>
+        <a class="rsvp-change">Verander</a>
     </div>
     <div id="rsvp-no">
         <p>Ons sal julle mis! Dankie dat jy laat weet het.</p>
+        <a class="rsvp-change">Verander</a>
     </div>
     <div id="MoreInfo" class="bottom-nav-link"><a>Meer inligting >></a></div>
 </div>

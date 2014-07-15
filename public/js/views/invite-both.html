@@ -2,24 +2,32 @@
     <div id="invite-names"></div>
     <form id="rsvp-form">
         <div class="line">
+            <span class="rsvp-name unit size1of3 txtr">&nbsp;</span>
+            &nbsp;<span>Ek sal kom:</span>
+        </div>
+        <div class="line">
             <span id="guestName" class="rsvp-name unit size1of3 txtr"></span>
-            &nbsp;<input type="radio" name="guestRsvp" value="true" />&nbsp;<span>Ek sal kom</span>
-            &nbsp;<input type="radio" name="guestRsvp" value="false" />&nbsp;<span>Ek sal nie kan kom nie</span>
+            &nbsp;<input type="checkbox" name="guestRsvpMorn" value="true" /><span>Oggend</span>
+            &nbsp;<input type="checkbox" name="guestRsvpEven" value="true" /><span>Aand</span>
+            &nbsp;<input type="checkbox" name="guestRsvpNo" value="false" /><span>Sal nie kan kom nie</span>
         </div>
         <div class="line">
             <span id="partnerName" class="rsvp-name unit size1of3 txtr"></span>
-            &nbsp;<input type="radio" name="partnerRsvp" value="true" />&nbsp;<span>Ek sal kom</span>
-            &nbsp;<input type="radio" name="partnerRsvp" value="false" />&nbsp;<span>Ek sal nie kan kom nie</span>
+            &nbsp;<input type="checkbox" name="partnerRsvpMorn" value="true" /><span>Oggend</span>
+            &nbsp;<input type="checkbox" name="partnerRsvpEven" value="true" /><span>Aand</span>
+            &nbsp;<input type="checkbox" name="partnerRsvpNo" value="false" /><span>Sal nie kan kom nie</span>
         </div>
         <div class="txtc" style="margin-top: 5px">
-            <button class="btn" type="submit">Gaan voort</button>
+            <button id="rsvp-submit" class="btn">Gaan voort</button>
         </div>
     </form>
     <div id="rsvp-yes">
         <p>Dankie, ons sien uit om julle daar te sien!</p>
+        <a class="rsvp-change">Verander</a>
     </div>
     <div id="rsvp-no">
         <p>Ons sal julle mis! Dankie dat jy laat weet het.</p>
+        <a class="rsvp-change">Verander</a>
     </div>
     <div id="MoreInfo" class="bottom-nav-link"><a>Meer inligting >></a></div>
 </div>
