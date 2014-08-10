@@ -127,6 +127,25 @@ class AdminController extends AbstractActionController
         return $this->csvExport('EveningList.csv', $header, $records);
     }
     
+    public function bachelorsListCsvAction()
+    {
+        $guests = $this->getEntityManager()->getRepository('Guest\Entity\Guest')->findAll();
+        $header = array('First Name', 'Surname', 'Email Address');
+        $records = array();
+        
+        foreach ($guests as $guest) {
+            if ($guest->getGender() == 'male') {
+                if (($guest->getInviteMorning() && $guest->getInviteMorning() !== false) || 
+                        ($guest->getInviteEvening() && $guest->getInviteEvening() !== false))
+                {
+                    array_push($records, array($guest->getName(), $guest->getSurname(), $guest->getEmail()));
+                }
+            }
+        }
+
+        return $this->csvExport('BachelorsList.csv', $header, $records);
+    }
+    
     private function saveGuests($guestsData) {
         $em = $this->getEntityManager();
         
