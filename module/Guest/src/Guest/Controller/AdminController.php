@@ -165,12 +165,12 @@ class AdminController extends AbstractActionController
     public function eveningGuestsCsvAction()
     {
         $guests = $this->getEntityManager()->getRepository('Guest\Entity\Guest')->findAll();
-        $header = array('First Name', 'Email Address');
+        $header = array('First Name', 'Last Name', 'Email Address');
         $records = array();
         
         foreach ($guests as $guest) {
             if ($guest->getAttendEvening()) {
-                $records[] = array($guest->getName(), $guest->getEmail());
+                $records[] = array($guest->getName(), $guest->getSurname(), $guest->getEmail());
             }
         }
 
